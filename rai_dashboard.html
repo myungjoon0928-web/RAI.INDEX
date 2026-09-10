@@ -1,0 +1,1341 @@
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg-void:#0A0E12;
+    --panel:#12181F;
+    --panel-2:#161D25;
+    --line:#223040;
+    --text-1:#E8EDF2;
+    --text-2:#7A8A99;
+    --text-3:#4C5A68;
+    --riskon:#4FD1A5;
+    --riskoff:#E8615A;
+    --neutral:#D9A94E;
+    --warn:#E8935D;
+    --accent:#6FA8FF;
+    --sma-purple:#B388EB;
+    --sma-cyan:#54C7D9;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;}
+  .rai-root{
+    background:var(--bg-void);
+    color:var(--text-1);
+    font-family:'Inter',sans-serif;
+    padding:28px 24px 40px;
+    min-height:100%;
+    border-radius:12px;
+  }
+  .rai-topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:16px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:18px;
+    margin-bottom:22px;
+  }
+  .rai-eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    color:var(--accent);
+    text-transform:uppercase;
+    margin:0 0 6px;
+  }
+  .rai-title{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:22px;
+    font-weight:600;
+    margin:0 0 4px;
+    letter-spacing:-0.01em;
+  }
+  .rai-sub{
+    font-size:12.5px;
+    color:var(--text-2);
+    margin:0;
+  }
+  .rai-controls{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .rai-updated{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--text-3);
+    text-align:right;
+  }
+  .rai-btn{
+    font-family:'Inter',sans-serif;
+    font-size:12.5px;
+    font-weight:500;
+    color:var(--bg-void);
+    background:var(--accent);
+    border:none;
+    border-radius:7px;
+    padding:9px 14px;
+    cursor:pointer;
+    transition:opacity .15s ease;
+  }
+  .rai-btn:hover{opacity:.85;}
+  .rai-btn.ghost{
+    background:transparent;
+    color:var(--text-2);
+    border:1px solid var(--line);
+  }
+  .rai-hero{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:36px;
+    align-items:center;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:26px 28px;
+    margin-bottom:20px;
+  }
+  .rai-hero-num{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:64px;
+    font-weight:700;
+    line-height:1;
+    letter-spacing:-0.02em;
+  }
+  .rai-hero-meta{display:flex;flex-direction:column;gap:10px;}
+  .rai-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.04em;
+    padding:5px 10px;
+    border-radius:20px;
+    width:fit-content;
+    text-transform:uppercase;
+  }
+  .rai-badge .dot{width:7px;height:7px;border-radius:50%;}
+  .rai-hero-label{font-size:12px;color:var(--text-2);}
+  .rai-spectrum{margin-top:4px;}
+  .rai-spectrum-track{
+    position:relative;
+    height:8px;
+    border-radius:4px;
+    opacity:.85;
+  }
+  .rai-spectrum-marker{
+    position:absolute;
+    top:-5px;
+    width:2px;
+    height:18px;
+    background:var(--text-1);
+    box-shadow:0 0 8px rgba(232,237,242,.7);
+  }
+  .rai-spectrum-labels{
+    display:flex;
+    justify-content:space-between;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    color:var(--text-3);
+    margin-top:6px;
+  }
+  .rai-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+  .rai-grid-2{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:16px;
+  }
+  .rai-panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:20px 22px;
+  }
+  .rai-panel-title{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:14px;
+    font-weight:600;
+    margin:0 0 14px;
+    color:var(--text-1);
+  }
+  .rai-chart-wrap{height:320px;position:relative;}
+  .rai-legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-bottom:10px;
+  }
+  .rai-legend-item{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--text-2);
+  }
+  .rai-legend-dot{width:9px;height:3px;border-radius:2px;}
+  .rai-candle-tooltip{
+    position:absolute;
+    top:10px;
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:8px 10px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    line-height:1.6;
+    color:var(--text-1);
+    pointer-events:none;
+    display:none;
+    z-index:10;
+    white-space:nowrap;
+  }
+  .rai-stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+    gap:14px;
+    margin-top:18px;
+  }
+  .rai-stat{
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 14px;
+  }
+  .rai-stat-label{font-size:10.5px;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+  .rai-stat-val{font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:600;}
+  .rai-empty{
+    text-align:center;
+    padding:60px 20px;
+    border:1.5px dashed var(--line);
+    border-radius:14px;
+    color:var(--text-2);
+  }
+  .rai-empty-title{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--text-1);margin-bottom:8px;}
+  .rai-empty p{font-size:13px;line-height:1.6;max-width:460px;margin:0 auto 18px;}
+  .rai-footnote{
+    font-size:11px;
+    color:var(--text-3);
+    margin-top:18px;
+    line-height:1.6;
+  }
+  input[type=file]{display:none;}
+  .rai-toggle{
+    display:flex;
+    border:1px solid var(--line);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .rai-toggle button{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    font-weight:600;
+    color:var(--text-2);
+    background:transparent;
+    border:none;
+    padding:9px 14px;
+    cursor:pointer;
+  }
+  .rai-toggle button + button{border-left:1px solid var(--line);}
+  .rai-toggle button.active{background:var(--accent);color:var(--bg-void);}
+  .rai-asset-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:16px;
+  }
+  .rai-asset-group-title{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:.06em;
+    color:var(--text-2);
+    text-transform:uppercase;
+    margin:0 0 10px;
+  }
+  .rai-asset-chip{
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+    font-size:12.5px;
+    padding:6px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .rai-asset-chip:last-child{border-bottom:none;}
+  .rai-asset-code{font-family:'IBM Plex Mono',monospace;color:var(--accent);font-weight:600;}
+  .rai-asset-name{color:var(--text-2);text-align:right;}
+  .rai-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    font-size:13px;
+    padding:9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .rai-row:last-child{border-bottom:none;}
+  .rai-row-name{font-weight:600;}
+  .rai-row-sub{color:var(--text-2);font-size:11px;}
+  .rai-row-right{display:flex;align-items:center;gap:10px;}
+  .rai-row-val{font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .rai-status-pill{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    font-weight:700;
+    padding:3px 8px;
+    border-radius:10px;
+    white-space:nowrap;
+  }
+  .rai-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+  .rai-table th{
+    text-align:right;
+    color:var(--text-2);
+    font-weight:600;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    padding:8px 10px;
+    border-bottom:1px solid var(--line);
+    white-space:nowrap;
+  }
+  .rai-table th:first-child, .rai-table td:first-child{text-align:left;}
+  .rai-table td{
+    padding:8px 10px;
+    border-bottom:1px solid var(--line);
+    font-family:'IBM Plex Mono',monospace;
+    text-align:right;
+    white-space:nowrap;
+  }
+  .rai-table tr:last-child td{border-bottom:none;}
+  @media (max-width:640px){
+    .rai-hero{grid-template-columns:1fr;text-align:center;}
+    .rai-hero-num{font-size:48px;}
+  }
+  .rai-modal-backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(4,6,9,0.72);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    padding:20px;
+  }
+  .rai-modal{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:22px 24px;
+    width:100%;
+    max-width:960px;
+  }
+  .rai-modal-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:16px;
+  }
+  .rai-modal-title{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:17px;
+    font-weight:600;
+    margin:0 0 4px;
+  }
+  .rai-modal-sub{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--text-2);
+    margin:0;
+  }
+</style>
+
+<div class="rai-root">
+  <div class="rai-topbar">
+    <div>
+      <p class="rai-eyebrow">Market Risk Dashboard</p>
+      <h1 class="rai-title">RAI &middot; NPS 위기인식지수 모니터</h1>
+      <p class="rai-sub">Credit Suisse식 위험선호지수 + 국민연금 위기인식지수(역산 추정) 통합 대시보드</p>
+    </div>
+    <div class="rai-controls">
+      <div class="rai-toggle" id="raiIndexToggle">
+        <button data-idx="rai" id="raiIdxRai">RAI</button>
+        <button data-idx="nps" id="raiIdxNps">NPS 위기지수</button>
+        <button data-idx="backtest" id="raiIdxBacktest">백테스트</button>
+      </div>
+      <div class="rai-toggle" id="raiFreqToggle">
+        <button data-freq="weekly" id="raiFreqWeekly">주간</button>
+        <button data-freq="daily" id="raiFreqDaily">일간</button>
+      </div>
+      <div class="rai-updated" id="raiUpdated">no data loaded</div>
+      <button class="rai-btn ghost" id="raiRefreshBtn" title="최신 데이터 다시 불러오기">↻ 새로고침</button>
+      <button class="rai-btn" id="raiUploadBtn">데이터 업로드</button>
+      <button class="rai-btn ghost" id="raiResetBtn">초기화</button>
+      <input type="file" id="raiFileInput" accept="application/json,.json">
+    </div>
+  </div>
+
+  <div id="raiContent"></div>
+  <div id="raiAssetModal" class="rai-modal-backdrop" style="display:none">
+    <div class="rai-modal">
+      <div class="rai-modal-head">
+        <div>
+          <p class="rai-modal-title" id="raiModalTitle">-</p>
+          <p class="rai-modal-sub" id="raiModalSub">-</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="rai-toggle" id="raiModalFreqToggle">
+            <button data-freq="weekly" id="raiModalFreqWeekly">주간</button>
+            <button data-freq="daily" id="raiModalFreqDaily">일간</button>
+          </div>
+          <button class="rai-btn ghost" id="raiModalClose">닫기 ✕</button>
+        </div>
+      </div>
+      <div class="rai-legend" id="raiModalLegend"></div>
+      <div class="rai-chart-wrap" id="raiModalChartWrap" style="height:380px"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const root = {
+    updated: document.getElementById('raiUpdated'),
+    content: document.getElementById('raiContent'),
+    uploadBtn: document.getElementById('raiUploadBtn'),
+    resetBtn: document.getElementById('raiResetBtn'),
+    fileInput: document.getElementById('raiFileInput'),
+    idxRai: document.getElementById('raiIdxRai'),
+    idxNps: document.getElementById('raiIdxNps'),
+    idxBacktest: document.getElementById('raiIdxBacktest'),
+    freqToggleWrap: document.getElementById('raiFreqToggle'),
+    freqWeekly: document.getElementById('raiFreqWeekly'),
+    freqDaily: document.getElementById('raiFreqDaily'),
+    refreshBtn: document.getElementById('raiRefreshBtn'),
+    assetModal: document.getElementById('raiAssetModal'),
+    modalTitle: document.getElementById('raiModalTitle'),
+    modalSub: document.getElementById('raiModalSub'),
+    modalClose: document.getElementById('raiModalClose'),
+    modalFreqWeekly: document.getElementById('raiModalFreqWeekly'),
+    modalFreqDaily: document.getElementById('raiModalFreqDaily'),
+  };
+
+  root.modalClose.addEventListener('click', closeAssetModal);
+  root.assetModal.addEventListener('click', (e) => { if(e.target === root.assetModal) closeAssetModal(); });
+
+  function closeAssetModal(){
+    root.assetModal.style.display = 'none';
+  }
+
+  let modalCode = null;
+  let modalFreq = 'weekly';
+
+  function updateModalFreqUI(){
+    root.modalFreqWeekly.classList.toggle('active', modalFreq === 'weekly');
+    root.modalFreqDaily.classList.toggle('active', modalFreq === 'daily');
+  }
+  root.modalFreqWeekly.addEventListener('click', () => { modalFreq = 'weekly'; updateModalFreqUI(); renderModalAsset(); });
+  root.modalFreqDaily.addEventListener('click', () => { modalFreq = 'daily'; updateModalFreqUI(); renderModalAsset(); });
+
+  function renderModalAsset(){
+    const legend = document.getElementById('raiModalLegend');
+    const cache = assetPricesMem[modalFreq];
+    if(!cache){
+      legend.innerHTML = '';
+      document.getElementById('raiModalChartWrap').innerHTML =
+        `<div style="padding:40px;text-align:center;color:${getVar('--text-2')};font-size:13px">${modalFreq === 'daily' ? '일간' : '주간'} 가격 데이터가 아직 없습니다. 새로고침을 눌러보세요.</div>`;
+      return;
+    }
+    const asset = (cache.assets || []).find(a => a.code === modalCode);
+    if(!asset) return;
+    const chg = asset.changePct;
+    const chgColor = chg > 0 ? getVar('--riskon') : (chg < 0 ? getVar('--riskoff') : getVar('--text-2'));
+    root.modalTitle.textContent = `${asset.name} (${asset.code})`;
+    root.modalSub.innerHTML = `${formatPrice(asset.latest)} <span style="color:${chgColor}">(${chg>0?'+':''}${chg.toFixed(2)}%)</span> · as of ${asset.latestDate} · ${modalFreq === 'daily' ? '일간 캔들' : '주간 캔들'}`;
+    if(asset.series.length && asset.series[0].open !== undefined){
+      legend.innerHTML = `
+        <span class="rai-legend-item"><span class="rai-legend-dot" style="background:${getVar('--accent')}"></span>MA5</span>
+        <span class="rai-legend-item"><span class="rai-legend-dot" style="background:${getVar('--neutral')}"></span>MA20</span>
+        <span class="rai-legend-item"><span class="rai-legend-dot" style="background:${getVar('--sma-purple')}"></span>MA60</span>
+        <span class="rai-legend-item"><span class="rai-legend-dot" style="background:${getVar('--sma-cyan')}"></span>MA120</span>`;
+      drawCandlestick('raiModalChartWrap', asset.series);
+    } else {
+      legend.innerHTML = '';
+      // backward-compat fallback for old cached data without OHLC
+      const vals = asset.series.map(d => d.value != null ? d.value : d.close);
+      drawChart('raiModalChartWrap', asset.series.map(d => ({ date: d.date, value: d.value != null ? d.value : d.close })), {
+        yMin: Math.min(...vals), yMax: Math.max(...vals),
+        color: getVar('--accent'), bands: [],
+      });
+    }
+  }
+
+  window.__raiOpenAssetModal = function(code){
+    modalCode = code;
+    modalFreq = activeFreq;
+    updateModalFreqUI();
+    root.assetModal.style.display = 'flex';
+    renderModalAsset();
+  };
+
+  const STORAGE_KEYS = {
+    rai: { weekly: 'dashboard-data-rai-weekly', daily: 'dashboard-data-rai-daily' },
+    nps: { weekly: 'dashboard-data-nps-weekly', daily: 'dashboard-data-nps-daily' },
+  };
+  const JSON_FILES = {
+    rai: { weekly: 'rai_dashboard_data_weekly.json', daily: 'rai_dashboard_data_daily.json' },
+    nps: { weekly: 'nps_dashboard_data_weekly.json', daily: 'nps_dashboard_data_daily.json' },
+  };
+  const PRICES_STORAGE_KEYS = { weekly: 'dashboard-data-prices-weekly', daily: 'dashboard-data-prices-daily' };
+  const assetPricesMem = { weekly: null, daily: null };
+  const PRICES_JSON_FILES = { weekly: 'rai_asset_prices_weekly.json', daily: 'rai_asset_prices_daily.json' };
+  const BACKTEST_STORAGE_KEY = 'dashboard-data-backtest';
+  const BACKTEST_JSON_FILE = 'backtest_results.json';
+  let lastBacktestData = null;
+
+  let activeIndex = 'rai';
+  let activeFreq = 'weekly';
+  let autoMode = false;
+
+  function safeGet(key){ try { return localStorage.getItem(key); } catch(e){ return null; } }
+  function safeSet(key, val){ try { localStorage.setItem(key, val); } catch(e){} }
+  function safeRemove(key){ try { localStorage.removeItem(key); } catch(e){} }
+  function getVar(name){
+    return getComputedStyle(document.querySelector('.rai-root')).getPropertyValue(name).trim();
+  }
+
+  function updateToggleUI(){
+    root.idxRai.classList.toggle('active', activeIndex === 'rai');
+    root.idxNps.classList.toggle('active', activeIndex === 'nps');
+    root.idxBacktest.classList.toggle('active', activeIndex === 'backtest');
+    root.freqWeekly.classList.toggle('active', activeFreq === 'weekly');
+    root.freqDaily.classList.toggle('active', activeFreq === 'daily');
+    root.freqToggleWrap.style.display = activeIndex === 'backtest' ? 'none' : 'flex';
+  }
+
+  function loadActive(){
+    if(activeIndex === 'backtest'){
+      const raw = safeGet(BACKTEST_STORAGE_KEY);
+      if(raw){
+        try { render(JSON.parse(raw)); return; } catch(e){}
+      }
+      renderEmpty('backtest', null);
+      root.updated.textContent = 'no data loaded';
+      return;
+    }
+    const raw = safeGet(STORAGE_KEYS[activeIndex][activeFreq]);
+    if(raw){
+      try { render(JSON.parse(raw)); return; } catch(e){}
+    }
+    renderEmpty(activeIndex, activeFreq);
+    root.updated.textContent = 'no data loaded';
+  }
+
+  root.idxRai.addEventListener('click', () => { activeIndex = 'rai'; updateToggleUI(); loadActive(); });
+  root.idxNps.addEventListener('click', () => { activeIndex = 'nps'; updateToggleUI(); loadActive(); });
+  root.idxBacktest.addEventListener('click', () => { activeIndex = 'backtest'; updateToggleUI(); loadActive(); });
+  root.freqWeekly.addEventListener('click', () => { activeFreq = 'weekly'; updateToggleUI(); loadActive(); });
+  root.freqDaily.addEventListener('click', () => { activeFreq = 'daily'; updateToggleUI(); loadActive(); });
+
+  window.__raiSetFreq = function(freq){ activeFreq = freq; updateToggleUI(); loadActive(); };
+
+  root.uploadBtn.addEventListener('click', () => root.fileInput.click());
+  root.fileInput.addEventListener('change', handleFile);
+  root.resetBtn.addEventListener('click', () => {
+    if(activeIndex === 'backtest'){
+      safeRemove(BACKTEST_STORAGE_KEY);
+      renderEmpty('backtest', null);
+      root.updated.textContent = 'no data loaded';
+      return;
+    }
+    safeRemove(STORAGE_KEYS[activeIndex][activeFreq]);
+    renderEmpty(activeIndex, activeFreq);
+    root.updated.textContent = 'no data loaded';
+  });
+
+  function handleFile(e){
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try{
+        const parsed = JSON.parse(ev.target.result);
+        if(parsed.indexType === 'ASSET_PRICES'){
+          if(!parsed.assets || !Array.isArray(parsed.assets) || parsed.assets.length === 0){
+            alert('JSON 형식이 올바르지 않습니다 (assets 배열이 없습니다).');
+            return;
+          }
+          const freq = parsed.frequency === 'daily' ? 'daily' : 'weekly';
+          assetPricesMem[freq] = parsed;
+          safeSet(PRICES_STORAGE_KEYS[freq], JSON.stringify(parsed));
+          activeFreq = freq;
+          updateToggleUI();
+          loadActive();
+          return;
+        }
+        if(parsed.indexType === 'BACKTEST'){
+          if(!parsed.summary || !Array.isArray(parsed.summary)){
+            alert('JSON 형식이 올바르지 않습니다 (summary 배열이 없습니다).');
+            return;
+          }
+          safeSet(BACKTEST_STORAGE_KEY, JSON.stringify(parsed));
+          activeIndex = 'backtest';
+          updateToggleUI();
+          render(parsed);
+          return;
+        }
+        if(!parsed.series || !Array.isArray(parsed.series) || parsed.series.length === 0){
+          alert('JSON 형식이 올바르지 않습니다 (series 배열이 없습니다).');
+          return;
+        }
+        const idx = parsed.indexType === 'NPS' ? 'nps' : 'rai';
+        const freq = parsed.frequency === 'daily' ? 'daily' : 'weekly';
+        safeSet(STORAGE_KEYS[idx][freq], JSON.stringify(parsed));
+        activeIndex = idx; activeFreq = freq;
+        updateToggleUI();
+        render(parsed);
+      }catch(err){
+        alert('JSON 파싱에 실패했습니다: ' + err.message);
+      }
+    };
+    reader.readAsText(file);
+    root.fileInput.value = '';
+  }
+
+  // ---------- shared helpers ----------
+  function regimeColor(regime){
+    if(regime === 'Risk-Seeking') return getVar('--riskon');
+    if(regime === 'Risk-Aversion') return getVar('--riskoff');
+    return getVar('--neutral');
+  }
+  function regimeLabelKo(regime){
+    if(regime === 'Risk-Seeking') return '위험 선호';
+    if(regime === 'Risk-Aversion') return '위험 회피';
+    return '중립';
+  }
+  function stageColor(stage){
+    if(stage === '위기심각') return getVar('--riskoff');
+    if(stage === '위기발단') return getVar('--warn');
+    if(stage === '주의') return getVar('--neutral');
+    return getVar('--riskon');
+  }
+  function statusColor(status){
+    if(status === '위험') return getVar('--riskoff');
+    if(status === '경계') return getVar('--warn');
+    if(status === '주의') return getVar('--neutral');
+    return getVar('--riskon');
+  }
+
+  const CLASS_ORDER = ['Risky-Equity','Risky-Credit','Risky-Commodity','Risky-FX','Risky-Alt','Safe-Haven'];
+  const CLASS_LABEL_KO = {
+    'Risky-Equity': '위험자산 · 주식',
+    'Risky-Credit': '위험자산 · 크레딧',
+    'Risky-Commodity': '위험자산 · 원자재',
+    'Risky-FX': '위험자산 · 캐리 FX',
+    'Risky-Alt': '위험자산 · 대체자산',
+    'Safe-Haven': '안전자산',
+  };
+
+  function renderAssetList(assets){
+    if(!assets || !assets.length) return '';
+    let priceMap = {};
+    try{
+      let parsed = assetPricesMem[activeFreq];
+      if(!parsed){
+        const raw = safeGet(PRICES_STORAGE_KEYS[activeFreq]);
+        if(raw) parsed = JSON.parse(raw);
+      }
+      if(parsed){
+        (parsed.assets || []).forEach(a => { priceMap[a.code] = a; });
+        assetPricesMem[activeFreq] = parsed;
+      }
+    }catch(e){}
+
+    const groups = {};
+    assets.forEach(a => { (groups[a.class] = groups[a.class] || []).push(a); });
+    const order = CLASS_ORDER.filter(c => groups[c]).concat(Object.keys(groups).filter(c => !CLASS_ORDER.includes(c)));
+    const hasPrices = Object.keys(priceMap).length > 0;
+    let html = '<div class="rai-panel"><p class="rai-panel-title">바스켓 구성 자산 (' + assets.length + '개)'
+      + (hasPrices ? '<span style="font-weight:400;color:'+getVar('--text-2')+';font-size:11.5px;"> — 클릭하면 과거 추이를 볼 수 있습니다</span>' : '')
+      + '</p><div class="rai-asset-grid">';
+    order.forEach(cls => {
+      html += '<div><p class="rai-asset-group-title">' + (CLASS_LABEL_KO[cls] || cls) + '</p>';
+      groups[cls].forEach(a => {
+        const p = priceMap[a.code];
+        if(p){
+          const chg = p.changePct;
+          const chgColor = chg > 0 ? getVar('--riskon') : (chg < 0 ? getVar('--riskoff') : getVar('--text-2'));
+          const chgSign = chg > 0 ? '+' : '';
+          html += `<div class="rai-asset-chip" style="cursor:pointer" onclick="window.__raiOpenAssetModal('${a.code}')">
+            <span class="rai-asset-code">${a.code}</span>
+            <span class="rai-asset-name">${formatPrice(p.latest)} <span style="color:${chgColor}">(${chgSign}${chg.toFixed(2)}%)</span></span>
+          </div>`;
+        } else {
+          html += `<div class="rai-asset-chip"><span class="rai-asset-code">${a.code}</span><span class="rai-asset-name">${a.name}</span></div>`;
+        }
+      });
+      html += '</div>';
+    });
+    html += '</div></div>';
+    return html;
+  }
+
+  function formatPrice(v){
+    if(v == null) return '-';
+    if(Math.abs(v) >= 1000) return v.toLocaleString(undefined, {maximumFractionDigits:0});
+    if(Math.abs(v) >= 10) return v.toFixed(2);
+    return v.toFixed(4);
+  }
+
+  function renderEmpty(idx, freq){
+    idx = idx || 'rai';
+    if(idx === 'backtest'){
+      root.content.innerHTML = `
+        <div class="rai-empty">
+          <div class="rai-empty-title">백테스트 데이터가 없습니다</div>
+          <p>로컬 PC에서 backtest_rai.py를 실행하면 ${BACKTEST_JSON_FILE} 파일이 생성됩니다 (run_dashboard.bat을 쓰면 자동으로 실행됩니다).
+          RAI/NPS 주간 데이터가 먼저 있어야 백테스트를 계산할 수 있습니다.
+          상단의 "데이터 업로드" 버튼으로 그 파일을 올리면 아래에 표시됩니다.</p>
+          <button class="rai-btn" onclick="document.getElementById('raiFileInput').click()">JSON 업로드</button>
+        </div>`;
+      return;
+    }
+    freq = freq || 'weekly';
+    const jsonName = JSON_FILES[idx][freq];
+    const label = (idx === 'nps' ? 'NPS 위기지수' : 'RAI') + ' · ' + (freq === 'daily' ? '일간' : '주간');
+    const scriptName = idx === 'nps' ? 'update_nps.py' : 'update_rai.py';
+    root.content.innerHTML = `
+      <div class="rai-empty">
+        <div class="rai-empty-title">${label} 데이터가 없습니다</div>
+        <p>로컬 PC에서 ${scriptName}를 실행하면 ${jsonName} 파일이 생성됩니다 (run_dashboard.bat을 쓰면 자동으로 실행됩니다).
+        상단의 "데이터 업로드" 버튼으로 그 파일을 올리면 아래에 표시되고, 이 브라우저에 저장되어 다음에 열어도 유지됩니다.
+        RAI/NPS, 주간/일간은 각각 따로 저장되니 다 올려두면 위 토글로 바로 전환해서 볼 수 있습니다.</p>
+        <button class="rai-btn" onclick="document.getElementById('raiFileInput').click()">JSON 업로드</button>
+      </div>`;
+  }
+
+  function render(data){
+    if(data.indexType === 'NPS'){
+      renderNPS(data);
+    } else if(data.indexType === 'BACKTEST'){
+      renderBacktest(data);
+    } else {
+      renderRAI(data);
+    }
+  }
+
+  // ---------- RAI ----------
+  function bandRow(active, color, title, range, desc){
+    const bg = active ? color + '14' : 'transparent';
+    const border = active ? color + '55' : 'var(--line)';
+    return `
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:12px 14px;border:1px solid ${border};background:${bg};border-radius:10px;margin-bottom:8px">
+        <div style="min-width:96px">
+          <div style="display:flex;align-items:center;gap:6px;font-weight:700;font-size:13px;color:${color}">
+            ${active ? '▶ ' : ''}${title}
+          </div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:${getVar('--text-2')};margin-top:2px">${range}</div>
+        </div>
+        <div style="font-size:12.5px;color:${getVar('--text-1')};line-height:1.6;flex:1">${desc}</div>
+      </div>`;
+  }
+
+  function raiInterpretationRows(currentRai){
+    const on = getVar('--riskon'), off = getVar('--riskoff'), neu = getVar('--neutral');
+    const seeking = currentRai > 1, aversion = currentRai < -1, neutral = !seeking && !aversion;
+    return `
+      ${bandRow(seeking, on, '위험 선호', 'RAI > +1', '위험자산(주식·하이일드 등)이 변동성 대비 후한 보상을 받는 국면. 투자자들이 적극적으로 위험을 감수하는 낙관적 시장입니다.')}
+      ${bandRow(neutral, neu, '중립', '-1 ~ +1', '위험자산과 안전자산 사이에 뚜렷한 쏠림이 없는 평상시 상태입니다.')}
+      ${bandRow(aversion, off, '위험 회피', 'RAI < -1', '안전자산(국채·금·엔화 등)이 선호되는 공포 국면. 과거 데이터상 -3 근처의 극단적 수치는 시장 패닉(2008, 2020 등)과 겹쳤고, 이후 반등하는 경우가 많아 역발상 매수 신호로 해석되기도 했습니다 — 참고용이며 투자 조언이 아닙니다.')}
+    `;
+  }
+
+  // ---------- Backtest ----------
+  window.__raiSetBtThreshold = function(t){
+    window.__raiBtThreshold = t;
+    if(lastBacktestData) renderBacktest(lastBacktestData);
+  };
+
+  function renderBacktest(data){
+    lastBacktestData = data;
+    const thresholds = data.thresholds || [];
+    if(window.__raiBtThreshold == null || !thresholds.includes(window.__raiBtThreshold)){
+      window.__raiBtThreshold = thresholds[Math.floor(thresholds.length / 2)];
+    }
+    const activeThr = window.__raiBtThreshold;
+    const on = getVar('--riskon'), off = getVar('--riskoff'), textDim = getVar('--text-2');
+
+    const thrButtons = thresholds.map(t =>
+      `<button class="${t === activeThr ? 'active' : ''}" onclick="window.__raiSetBtThreshold(${t})">RAI &lt; ${t}</button>`
+    ).join('');
+
+    const subSummary = (data.summary || []).filter(r => r.threshold === activeThr)
+      .sort((a,b) => a.horizon_weeks - b.horizon_weeks);
+    const nEpisodes = subSummary.length ? subSummary[0].n_episodes : 0;
+
+    let summaryRows = '';
+    subSummary.forEach(r => {
+      const edge = r.edge_vs_baseline_pct;
+      const edgeColor = edge == null ? textDim : (edge > 0 ? on : off);
+      summaryRows += `<tr>
+        <td>${r.horizon_weeks}주</td>
+        <td>${r.avg_fwd_return_pct != null ? r.avg_fwd_return_pct.toFixed(2)+'%' : '-'}</td>
+        <td>${r.median_fwd_return_pct != null ? r.median_fwd_return_pct.toFixed(2)+'%' : '-'}</td>
+        <td>${r.hit_rate_pct != null ? r.hit_rate_pct.toFixed(1)+'%' : '-'}</td>
+        <td>${r.baseline_avg_fwd_return_pct.toFixed(2)}%</td>
+        <td style="color:${edgeColor};font-weight:700">${edge != null ? (edge>0?'+':'')+edge.toFixed(2)+'%' : '-'}</td>
+      </tr>`;
+    });
+
+    const episodes = (data.episodes || []).filter(e => e.threshold === activeThr)
+      .sort((a,b) => a.date < b.date ? 1 : -1);
+    const episodeRows = episodes.map(e => `<tr>
+        <td>${e.date}</td>
+        <td style="color:${off}">${e.drawdown_into_signal_pct}%</td>
+        <td>${e.fwd_4w_pct != null ? e.fwd_4w_pct+'%' : '-'}</td>
+        <td>${e.fwd_12w_pct != null ? e.fwd_12w_pct+'%' : '-'}</td>
+        <td>${e.fwd_26w_pct != null ? e.fwd_26w_pct+'%' : '-'}</td>
+        <td>${e.fwd_52w_pct != null ? e.fwd_52w_pct+'%' : '-'}</td>
+      </tr>`).join('');
+
+    root.content.innerHTML = `
+      <div class="rai-panel" style="margin-bottom:20px">
+        <p class="rai-panel-title">RAI 역발상 백테스트 — 공포 구간 매수 시 성과</p>
+        <p style="font-size:12.5px;color:${textDim};line-height:1.6;margin:0 0 14px">
+          표본: ${data.sampleStart} ~ ${data.sampleEnd} (주간, ${data.benchmark} 기준) · 실시간(expanding window) z-score 사용
+          — 미래 데이터 누수 없이, 그 시점까지의 정보만으로 계산했습니다. 아래 임계값을 눌러 비교해보세요.
+        </p>
+        <div class="rai-toggle" style="margin-bottom:16px;width:fit-content">${thrButtons}</div>
+        <p style="font-size:12.5px;color:${textDim};margin:0 0 10px">감지된 공포 구간: <b style="color:${getVar('--text-1')}">${nEpisodes}회</b></p>
+        <div style="overflow-x:auto">
+        <table class="rai-table">
+          <thead><tr><th>보유기간</th><th>평균 순방향수익률</th><th>중앙값</th><th>승률</th><th>기준(전체평균)</th><th>초과성과</th></tr></thead>
+          <tbody>${summaryRows || `<tr><td colspan="6" style="text-align:center;color:${textDim}">이 임계값에서는 감지된 구간이 없습니다</td></tr>`}</tbody>
+        </table>
+        </div>
+      </div>
+      <div class="rai-panel">
+        <p class="rai-panel-title">개별 공포 구간 상세 (RAI &lt; ${activeThr})</p>
+        <div style="overflow-x:auto">
+        <table class="rai-table">
+          <thead><tr><th>시작일</th><th>당시 낙폭(52주 고점 대비)</th><th>+4주</th><th>+12주</th><th>+26주</th><th>+52주</th></tr></thead>
+          <tbody>${episodeRows || `<tr><td colspan="6" style="text-align:center;color:${textDim}">없음</td></tr>`}</tbody>
+        </table>
+        </div>
+      </div>
+      <p class="rai-footnote">역발상 매수 백테스트: 실시간(expanding-window) z-score 기준 RAI가 임계값 아래로 처음 진입한 시점을 매수 신호로 보고,
+      이후 실제 ${data.benchmark} 순방향 수익률을 계산했습니다. '초과성과'는 같은 기간 무작위(전체 주간 평균) 대비 얼마나 더/덜 벌었는지입니다.
+      위기 구간은 정의상 희소해 표본 수가 적으므로 통계적 불확실성이 크고, 참고용이며 투자 조언이 아닙니다.</p>
+    `;
+    root.updated.textContent = (autoMode ? '자동 연동됨 · ' : '') + 'generated ' + (data.generatedAt || '');
+  }
+
+  function renderRAI(data){
+    const series = data.series;
+    const last = series[series.length - 1];
+    const color = regimeColor(last.regime);
+    const clampPct = Math.max(0, Math.min(100, ((last.rai + 3) / 6) * 100));
+    const freqLabelKo = data.frequency === 'daily' ? '일간' : '주간';
+    const windowLabel = data.windowLabel || (data.frequency === 'daily' ? '65-day' : '13-week');
+
+    const raiVals = series.map(d => d.rai);
+    const mean = (raiVals.reduce((a,b)=>a+b,0) / raiVals.length);
+    const minV = Math.min(...raiVals);
+    const maxV = Math.max(...raiVals);
+
+    root.content.innerHTML = `
+      <div class="rai-hero">
+        <div>
+          <div class="rai-hero-num" style="color:${color}">${last.rai.toFixed(2)}</div>
+          <div class="rai-hero-label">as of ${last.date} &middot; ${freqLabelKo}</div>
+        </div>
+        <div class="rai-hero-meta">
+          <span class="rai-badge" style="color:${color};background:${color}22;border:1px solid ${color}55">
+            <span class="dot" style="background:${color}"></span>${regimeLabelKo(last.regime)} &middot; ${last.regime}
+          </span>
+          <div class="rai-spectrum">
+            <div class="rai-spectrum-track" style="background:linear-gradient(90deg,${getVar('--riskoff')} 0%,${getVar('--riskoff')} 20%,${getVar('--neutral')} 38%,${getVar('--neutral')} 62%,${getVar('--riskon')} 80%,${getVar('--riskon')} 100%)">
+              <div class="rai-spectrum-marker" style="left:calc(${clampPct}% - 1px)"></div>
+            </div>
+            <div class="rai-spectrum-labels"><span>-3 Risk-Aversion</span><span>0</span><span>+3 Risk-Seeking</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rai-panel" style="margin-bottom:20px">
+        <p class="rai-panel-title">해석 가이드 — 이 숫자가 무슨 뜻인가요?</p>
+        ${raiInterpretationRows(last.rai)}
+      </div>
+
+      <div class="rai-grid">
+        <div class="rai-panel">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px">
+            <p class="rai-panel-title" style="margin:0">RAI — ${freqLabelKo} History (${windowLabel} rolling window)</p>
+            <div class="rai-toggle">
+              <button class="${data.frequency==='weekly'?'active':''}" onclick="window.__raiSetFreq('weekly')">주간</button>
+              <button class="${data.frequency==='daily'?'active':''}" onclick="window.__raiSetFreq('daily')">일간</button>
+            </div>
+          </div>
+          <div class="rai-chart-wrap" id="raiChartWrap"></div>
+          <div class="rai-stats">
+            <div class="rai-stat"><div class="rai-stat-label">Sample mean</div><div class="rai-stat-val">${mean.toFixed(2)}</div></div>
+            <div class="rai-stat"><div class="rai-stat-label">Sample min</div><div class="rai-stat-val" style="color:${getVar('--riskoff')}">${minV.toFixed(2)}</div></div>
+            <div class="rai-stat"><div class="rai-stat-label">Sample max</div><div class="rai-stat-val" style="color:${getVar('--riskon')}">${maxV.toFixed(2)}</div></div>
+            <div class="rai-stat"><div class="rai-stat-label">Basket size</div><div class="rai-stat-val">${data.basketSize || '-'}</div></div>
+            <div class="rai-stat"><div class="rai-stat-label">Window</div><div class="rai-stat-val">${windowLabel}</div></div>
+            <div class="rai-stat"><div class="rai-stat-label">Data points</div><div class="rai-stat-val">${series.length}</div></div>
+          </div>
+        </div>
+        ${renderAssetList(data.assets)}
+      </div>
+      <p class="rai-footnote">Credit Suisse(CSFB) 방식 위험선호지수 복제: 24개 자산의 ${windowLabel} 롤링 연환산 초과수익률 대 변동성의
+      횡단면 회귀 기울기를 자체 히스토리 평균/표준편차로 z-score화. RAI&gt;+1 위험선호, RAI&lt;-1 위험회피(과거 데이터 상
+      역발상 신호로 해석되던 구간), 참고용이며 투자 조언이 아닙니다.</p>
+    `;
+
+    drawChart('raiChartWrap', series.map(d => ({ date: d.date, value: d.rai })), {
+      yMin: Math.min(-1.5, ...raiVals), yMax: Math.max(1.5, ...raiVals),
+      color: getVar('--accent'),
+      bands: [ { value: 1, color: getVar('--riskon') }, { value: -1, color: getVar('--riskoff') } ],
+      tooltipLabel: 'RAI', tooltipFormat: v => v.toFixed(2),
+    });
+    root.updated.textContent = (autoMode ? '자동 연동됨 · ' : '') + 'generated ' + (data.generatedAt || '');
+  }
+
+  // ---------- NPS ----------
+  const IND_LABEL = {
+    VIX: 'VIX (변동성지수)',
+    EMBI: 'EMBI 스프레드 (EM 신용 프록시)',
+    GSCI_YOY: 'GSCI YoY (원자재)',
+    HY: 'HY 스프레드 (하이일드)',
+    FX_VOL: 'FX 변동성 (DXY 실현변동성)',
+  };
+  const IND_UNIT = { VIX: '', EMBI: 'bp', GSCI_YOY: '%', HY: 'bp', FX_VOL: '%' };
+
+  function npsInterpretationRows(currentScore){
+    const on = getVar('--riskon'), neu = getVar('--neutral'), warn = getVar('--warn'), off = getVar('--riskoff');
+    const stage = currentScore >= 80 ? 3 : currentScore >= 60 ? 2 : currentScore >= 40 ? 1 : 0;
+    return `
+      ${bandRow(stage===0, on, '정상', '0 ~ 40', 'VIX·신용스프레드·원자재·FX변동성이 모두 평상시 범위. 시장이 안정적으로 인식되는 구간입니다.')}
+      ${bandRow(stage===1, neu, '주의', '40 ~ 60', '일부 지표가 평소보다 높게 나타나기 시작하는 단계. 아직 위기로 보긴 이르지만 지켜볼 필요가 있는 구간입니다.')}
+      ${bandRow(stage===2, warn, '위기발단', '60 ~ 80', '여러 지표가 동시에 스트레스 신호를 보내는 단계. 과거 사례에서 시장 변동성이 본격적으로 확대되기 시작한 구간과 겹칩니다.')}
+      ${bandRow(stage===3, off, '위기심각', '80 ~ 100', 'VIX 급등·신용스프레드 급확대 등 복수 지표가 동시에 극단치를 기록하는 단계. 2008, 2020년 같은 시장 패닉 국면에 해당하는 수준입니다.')}
+    `;
+  }
+
+  function renderNPS(data){
+    const series = data.series;
+    const last = series[series.length - 1];
+    const color = stageColor(last.stage);
+    const clampPct = Math.max(0, Math.min(100, last.score));
+    const freqLabelKo = data.frequency === 'daily' ? '일간' : '주간';
+
+    const scoreVals = series.map(d => d.score);
+    const mean = (scoreVals.reduce((a,b)=>a+b,0) / scoreVals.length);
+    const minV = Math.min(...scoreVals);
+    const maxV = Math.max(...scoreVals);
+
+    let indicatorRows = '';
+    Object.keys(IND_LABEL).forEach(key => {
+      const ind = last.indicators[key];
+      if(!ind) return;
+      const sc = statusColor(ind.status);
+      indicatorRows += `
+        <div class="rai-row">
+          <div><div class="rai-row-name">${IND_LABEL[key]}</div><div class="rai-row-sub">percentile ${ind.pct}</div></div>
+          <div class="rai-row-right">
+            <span class="rai-row-val">${ind.value}${IND_UNIT[key]}</span>
+            <span class="rai-status-pill" style="color:${sc};background:${sc}22;border:1px solid ${sc}55">${ind.status}</span>
+          </div>
+        </div>`;
+    });
+
+    const modelRows = `
+      <div class="rai-row"><div class="rai-row-name">모델 A · 가중 백분위수</div><span class="rai-row-val">${last.modelA}</span></div>
+      <div class="rai-row"><div class="rai-row-name">모델 B · Z-스코어 로지스틱</div><span class="rai-row-val">${last.modelB}</span></div>
+      <div class="rai-row"><div class="rai-row-name">모델 C · 꼬리위험 강화</div><span class="rai-row-val">${last.modelC}</span></div>
+      <div class="rai-row"><div class="rai-row-name" style="color:${color}">3개 모델 평균</div><span class="rai-row-val" style="color:${color};font-weight:700">${last.score}</span></div>
+    `;
+
+    root.content.innerHTML = `
+      <div class="rai-hero">
+        <div>
+          <div class="rai-hero-num" style="color:${color}">${last.score.toFixed(1)}</div>
+          <div class="rai-hero-label">as of ${last.date} &middot; ${freqLabelKo}</div>
+        </div>
+        <div class="rai-hero-meta">
+          <span class="rai-badge" style="color:${color};background:${color}22;border:1px solid ${color}55">
+            <span class="dot" style="background:${color}"></span>${last.stage}
+          </span>
+          <div class="rai-spectrum">
+            <div class="rai-spectrum-track" style="background:linear-gradient(90deg,${getVar('--riskon')} 0%,${getVar('--riskon')} 40%,${getVar('--neutral')} 40%,${getVar('--neutral')} 60%,${getVar('--warn')} 60%,${getVar('--warn')} 80%,${getVar('--riskoff')} 80%,${getVar('--riskoff')} 100%)">
+              <div class="rai-spectrum-marker" style="left:calc(${clampPct}% - 1px)"></div>
+            </div>
+            <div class="rai-spectrum-labels"><span>0 정상</span><span>40 주의</span><span>60 위기발단</span><span>80 위기심각</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rai-panel" style="margin-bottom:20px">
+        <p class="rai-panel-title">해석 가이드 — 단계별 의미</p>
+        ${npsInterpretationRows(last.score)}
+      </div>
+
+      <div class="rai-grid">
+        <div class="rai-panel">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px">
+            <p class="rai-panel-title" style="margin:0">NPS 위기인식지수 — ${freqLabelKo} History</p>
+            <div class="rai-toggle">
+              <button class="${data.frequency==='weekly'?'active':''}" onclick="window.__raiSetFreq('weekly')">주간</button>
+              <button class="${data.frequency==='daily'?'active':''}" onclick="window.__raiSetFreq('daily')">일간</button>
+            </div>
+          </div>
+          <div class="rai-chart-wrap" id="raiChartWrap"></div>
+          <div class="rai-stats">
+            <div class="rai-stat"><div class="rai-stat-label">Sample mean</div><div class="rai-stat-val">${mean.toFixed(1)}</div></div>
+            <div class="rai-stat"><div class="rai-stat-label">Sample min</div><div class="rai-stat-val" style="color:${getVar('--riskon')}">${minV.toFixed(1)}</div></div>
+            <div class="rai-stat"><div class="rai-stat-label">Sample max</div><div class="rai-stat-val" style="color:${getVar('--riskoff')}">${maxV.toFixed(1)}</div></div>
+            <div class="rai-stat"><div class="rai-stat-label">Data points</div><div class="rai-stat-val">${series.length}</div></div>
+          </div>
+        </div>
+        <div class="rai-grid-2">
+          <div class="rai-panel">
+            <p class="rai-panel-title">지표별 현재값 · 백분위수</p>
+            ${indicatorRows}
+          </div>
+          <div class="rai-panel">
+            <p class="rai-panel-title">모델별 추정치</p>
+            ${modelRows}
+          </div>
+        </div>
+      </div>
+      <p class="rai-footnote">국민연금 위기인식지수 역산 추정 모델 복제 — 공식 비공개, 사용자가 업로드한 시뮬레이터 파일의
+      백분위 환산표·가중치·모델 공식을 그대로 사용했습니다. VIX·GSCI는 야후 파이낸스, EMBI/HY 스프레드는 FRED(ICE BofA
+      지수, EMBI는 EM 크레딧 스프레드로 근사한 프록시)를 실데이터 소스로 사용합니다. 추정 모델이며 투자 판단이나
+      실제 국민연금 위기단계 판단에 직접 활용하지 마십시오.</p>
+    `;
+
+    drawChart('raiChartWrap', series.map(d => ({ date: d.date, value: d.score })), {
+      yMin: 0, yMax: 100,
+      color: getVar('--accent'),
+      bands: [
+        { value: 40, color: getVar('--neutral') },
+        { value: 60, color: getVar('--warn') },
+        { value: 80, color: getVar('--riskoff') },
+      ],
+      tooltipLabel: 'NPS', tooltipFormat: v => v.toFixed(1),
+    });
+    root.updated.textContent = (autoMode ? '자동 연동됨 · ' : '') + 'generated ' + (data.generatedAt || '');
+  }
+
+  // ---------- shared SVG line chart ----------
+  function drawChart(wrapId, points, opts){
+    const wrap = document.getElementById(wrapId);
+    if(!wrap) return;
+    wrap.innerHTML = '';
+    const W = Math.max(wrap.clientWidth || 800, 320);
+    const H = wrap.clientHeight || 320;
+    const padL = 42, padR = 12, padT = 14, padB = 26;
+    const plotW = W - padL - padR, plotH = H - padT - padB;
+
+    let yMin = opts.yMin, yMax = opts.yMax;
+    const pad = (yMax - yMin) * 0.06 || 1;
+    yMin -= pad; yMax += pad;
+
+    const n = points.length;
+    const xAt = i => padL + (n === 1 ? 0 : (i / (n - 1)) * plotW);
+    const yAt = v => padT + plotH - ((v - yMin) / (yMax - yMin)) * plotH;
+
+    const lineColor = getVar('--line');
+    const textDim = getVar('--text-2');
+
+    let path = '';
+    points.forEach((d,i) => { path += (i===0 ? 'M' : 'L') + xAt(i).toFixed(1) + ',' + yAt(d.value).toFixed(1) + ' '; });
+    const areaPath = path + `L${xAt(n-1).toFixed(1)},${(padT+plotH).toFixed(1)} L${xAt(0).toFixed(1)},${(padT+plotH).toFixed(1)} Z`;
+
+    const tickCount = Math.min(6, n);
+    let xTicks = '';
+    for(let t=0; t<tickCount; t++){
+      const idx = Math.round((t/(tickCount-1||1)) * (n-1));
+      const x = xAt(idx);
+      xTicks += `<line x1="${x}" y1="${padT}" x2="${x}" y2="${padT+plotH}" stroke="${lineColor}" stroke-width="1"/>`;
+      xTicks += `<text x="${x}" y="${padT+plotH+16}" fill="${textDim}" font-family="IBM Plex Mono, monospace" font-size="9.5" text-anchor="middle">${points[idx].date.slice(2)}</text>`;
+    }
+    const yTickVals = [Math.ceil(yMax), (opts.yMin+opts.yMax)/2, Math.floor(yMin)].filter((v,i,a)=>a.indexOf(v)===i);
+    let yTicks = '';
+    yTickVals.forEach(v => {
+      const y = yAt(v);
+      yTicks += `<line x1="${padL}" y1="${y}" x2="${padL+plotW}" y2="${y}" stroke="${lineColor}" stroke-width="1"/>`;
+      yTicks += `<text x="${padL-8}" y="${y+3}" fill="${textDim}" font-family="IBM Plex Mono, monospace" font-size="9.5" text-anchor="end">${Math.round(v)}</text>`;
+    });
+
+    let bandLines = '';
+    (opts.bands || []).forEach(b => {
+      const y = yAt(b.value);
+      bandLines += `<line x1="${padL}" y1="${y}" x2="${padL+plotW}" y2="${y}" stroke="${b.color}" stroke-width="1" stroke-dasharray="4,4" opacity="0.7"/>`;
+    });
+
+    const gradId = 'grad_' + wrapId;
+    const svg = `
+      <svg viewBox="0 0 ${W} ${H}" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" id="${wrapId}_svg">
+        <defs>
+          <linearGradient id="${gradId}" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="${opts.color}" stop-opacity="0.28"/>
+            <stop offset="100%" stop-color="${opts.color}" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        ${yTicks}
+        ${xTicks}
+        ${bandLines}
+        <path d="${areaPath}" fill="url(#${gradId})" stroke="none"/>
+        <path d="${path}" fill="none" stroke="${opts.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        <line id="${wrapId}_xhair" x1="0" y1="${padT}" x2="0" y2="${padT+plotH}" stroke="${textDim}" stroke-width="1" stroke-dasharray="3,3" style="display:none"/>
+        <circle id="${wrapId}_dot" r="3.5" fill="${opts.color}" style="display:none"/>
+      </svg>`;
+    wrap.innerHTML = svg;
+
+    // ---- hover crosshair + tooltip (date + value) ----
+    let tooltip = wrap.querySelector('.rai-candle-tooltip');
+    if(!tooltip){
+      tooltip = document.createElement('div');
+      tooltip.className = 'rai-candle-tooltip';
+      wrap.appendChild(tooltip);
+    }
+    const svgEl = document.getElementById(wrapId + '_svg');
+    const xhair = document.getElementById(wrapId + '_xhair');
+    const dot = document.getElementById(wrapId + '_dot');
+    const valLabel = opts.tooltipLabel || '값';
+    const fmt = opts.tooltipFormat || (v => v.toFixed(2));
+
+    function onMove(e){
+      const rect = svgEl.getBoundingClientRect();
+      const scaleX = W / rect.width;
+      const xPix = (e.clientX - rect.left) * scaleX;
+      let idx = n === 1 ? 0 : Math.round(((xPix - padL) / plotW) * (n - 1));
+      idx = Math.max(0, Math.min(n - 1, idx));
+      const d = points[idx];
+      const px = xAt(idx), py = yAt(d.value);
+      xhair.setAttribute('x1', px); xhair.setAttribute('x2', px);
+      xhair.style.display = 'block';
+      dot.setAttribute('cx', px); dot.setAttribute('cy', py);
+      dot.style.display = 'block';
+      tooltip.innerHTML = `<div style="font-weight:700;margin-bottom:3px">${d.date}</div><div>${valLabel} ${fmt(d.value)}</div>`;
+      const cssScale = rect.width / W;
+      let leftPx = px * cssScale + 10;
+      if(leftPx > rect.width - 120) leftPx = px * cssScale - 130;
+      tooltip.style.left = leftPx + 'px';
+      tooltip.style.display = 'block';
+    }
+    function onLeave(){ tooltip.style.display = 'none'; xhair.style.display = 'none'; dot.style.display = 'none'; }
+    svgEl.addEventListener('mousemove', onMove);
+    svgEl.addEventListener('mouseleave', onLeave);
+  }
+
+  // ---------- candlestick chart (OHLC) for the asset detail modal ----------
+  function computeSMA(values, period){
+    const out = new Array(values.length).fill(null);
+    let sum = 0;
+    for(let i=0; i<values.length; i++){
+      sum += values[i];
+      if(i >= period) sum -= values[i-period];
+      if(i >= period-1) out[i] = sum/period;
+    }
+    return out;
+  }
+
+  function smaPath(vals, xAt, yAt){
+    let d = '';
+    let drawing = false;
+    vals.forEach((v,i) => {
+      if(v == null){ drawing = false; return; }
+      d += (drawing ? 'L' : 'M') + xAt(i).toFixed(1) + ',' + yAt(v).toFixed(1) + ' ';
+      drawing = true;
+    });
+    return d;
+  }
+
+  function drawCandlestick(wrapId, series){
+    const wrap = document.getElementById(wrapId);
+    if(!wrap) return;
+    wrap.innerHTML = '';
+    const W = Math.max(wrap.clientWidth || 800, 320);
+    const H = wrap.clientHeight || 320;
+    const padL = 52, padR = 12, padT = 14, padB = 26;
+    const plotW = W - padL - padR, plotH = H - padT - padB;
+    const n = series.length;
+
+    const closes = series.map(d => d.close);
+    const sma5 = computeSMA(closes, 5), sma20 = computeSMA(closes, 20);
+    const sma60 = computeSMA(closes, 60), sma120 = computeSMA(closes, 120);
+
+    const highs = series.map(d => d.high), lows = series.map(d => d.low);
+    let yMin = Math.min(...lows), yMax = Math.max(...highs);
+    const pad = (yMax - yMin) * 0.08 || 1;
+    yMin -= pad; yMax += pad;
+
+    const xStep = plotW / n;
+    const xAt = i => padL + i * xStep + xStep / 2;
+    const yAt = v => padT + plotH - ((v - yMin) / (yMax - yMin)) * plotH;
+    const bodyW = Math.max(1, Math.min(9, xStep * 0.62));
+
+    const lineColor = getVar('--line'), textDim = getVar('--text-2');
+    const riskon = getVar('--riskon'), riskoff = getVar('--riskoff');
+
+    const yTickVals = [yMax, (yMin + yMax) / 2, yMin];
+    let yTicks = '';
+    yTickVals.forEach(v => {
+      const y = yAt(v);
+      yTicks += `<line x1="${padL}" y1="${y}" x2="${padL+plotW}" y2="${y}" stroke="${lineColor}" stroke-width="1"/>`;
+      yTicks += `<text x="${padL-8}" y="${y+3}" fill="${textDim}" font-family="IBM Plex Mono, monospace" font-size="9.5" text-anchor="end">${formatPrice(v)}</text>`;
+    });
+
+    const tickCount = Math.min(6, n);
+    let xTicks = '';
+    for(let t=0; t<tickCount; t++){
+      const idx = Math.round((t/(tickCount-1||1)) * (n-1));
+      const x = xAt(idx);
+      xTicks += `<line x1="${x}" y1="${padT}" x2="${x}" y2="${padT+plotH}" stroke="${lineColor}" stroke-width="1"/>`;
+      xTicks += `<text x="${x}" y="${padT+plotH+16}" fill="${textDim}" font-family="IBM Plex Mono, monospace" font-size="9.5" text-anchor="middle">${series[idx].date.slice(2)}</text>`;
+    }
+
+    let candles = '';
+    series.forEach((d, i) => {
+      const x = xAt(i);
+      const up = d.close >= d.open;
+      const color = up ? riskon : riskoff;
+      const yHigh = yAt(d.high), yLow = yAt(d.low);
+      const yOpen = yAt(d.open), yClose = yAt(d.close);
+      const bodyTop = Math.min(yOpen, yClose), bodyBot = Math.max(yOpen, yClose);
+      const bodyH = Math.max(1, bodyBot - bodyTop);
+      candles += `<line x1="${x.toFixed(1)}" y1="${yHigh.toFixed(1)}" x2="${x.toFixed(1)}" y2="${yLow.toFixed(1)}" stroke="${color}" stroke-width="1"/>`;
+      candles += `<rect x="${(x-bodyW/2).toFixed(1)}" y="${bodyTop.toFixed(1)}" width="${bodyW.toFixed(1)}" height="${bodyH.toFixed(1)}" fill="${color}"/>`;
+    });
+
+    const maLines = `
+      <path d="${smaPath(sma5, xAt, yAt)}" fill="none" stroke="${getVar('--accent')}" stroke-width="1.3" opacity="0.9"/>
+      <path d="${smaPath(sma20, xAt, yAt)}" fill="none" stroke="${getVar('--neutral')}" stroke-width="1.3" opacity="0.9"/>
+      <path d="${smaPath(sma60, xAt, yAt)}" fill="none" stroke="${getVar('--sma-purple')}" stroke-width="1.3" opacity="0.9"/>
+      <path d="${smaPath(sma120, xAt, yAt)}" fill="none" stroke="${getVar('--sma-cyan')}" stroke-width="1.3" opacity="0.9"/>
+    `;
+
+    const svg = `
+      <svg viewBox="0 0 ${W} ${H}" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" id="${wrapId}_svg">
+        ${yTicks}
+        ${xTicks}
+        ${maLines}
+        ${candles}
+        <line id="${wrapId}_xhair" x1="0" y1="${padT}" x2="0" y2="${padT+plotH}" stroke="${textDim}" stroke-width="1" stroke-dasharray="3,3" style="display:none"/>
+      </svg>`;
+    wrap.innerHTML = svg;
+
+    // ---- interactive crosshair tooltip ----
+    let tooltip = wrap.querySelector('.rai-candle-tooltip');
+    if(!tooltip){
+      tooltip = document.createElement('div');
+      tooltip.className = 'rai-candle-tooltip';
+      wrap.appendChild(tooltip);
+    }
+    const svgEl = document.getElementById(wrapId + '_svg');
+    const xhair = document.getElementById(wrapId + '_xhair');
+    const smaMap = { MA5: sma5, MA20: sma20, MA60: sma60, MA120: sma120 };
+    const smaColor = { MA5: getVar('--accent'), MA20: getVar('--neutral'), MA60: getVar('--sma-purple'), MA120: getVar('--sma-cyan') };
+
+    function onMove(e){
+      const rect = svgEl.getBoundingClientRect();
+      const scaleX = W / rect.width;
+      const xPix = (e.clientX - rect.left) * scaleX;
+      let idx = Math.round((xPix - padL) / xStep - 0.5);
+      idx = Math.max(0, Math.min(n - 1, idx));
+      const d = series[idx];
+      xhair.setAttribute('x1', xAt(idx)); xhair.setAttribute('x2', xAt(idx));
+      xhair.style.display = 'block';
+      const up = d.close >= d.open;
+      const chgColor = up ? riskon : riskoff;
+      let maHtml = '';
+      Object.keys(smaMap).forEach(k => {
+        const v = smaMap[k][idx];
+        if(v != null) maHtml += `<div style="color:${smaColor[k]}">${k} ${formatPrice(v)}</div>`;
+      });
+      tooltip.innerHTML = `<div style="font-weight:700;margin-bottom:3px">${d.date}</div>
+        <div>시가 ${formatPrice(d.open)}</div>
+        <div>고가 ${formatPrice(d.high)}</div>
+        <div>저가 ${formatPrice(d.low)}</div>
+        <div style="color:${chgColor}">종가 ${formatPrice(d.close)}</div>
+        ${maHtml}`;
+      const cssScale = rect.width / W;
+      let leftPx = xAt(idx) * cssScale + 10;
+      if(leftPx > rect.width - 130) leftPx = xAt(idx) * cssScale - 140;
+      tooltip.style.left = leftPx + 'px';
+      tooltip.style.display = 'block';
+    }
+    function onLeave(){ tooltip.style.display = 'none'; xhair.style.display = 'none'; }
+    svgEl.addEventListener('mousemove', onMove);
+    svgEl.addEventListener('mouseleave', onLeave);
+  }
+
+  // ---------- auto fetch (works when served via run_dashboard.bat / http server) ----------
+  function fetchJSON(path){
+    return fetch(path, { cache: 'no-store' })
+      .then(res => res.ok ? res.json() : null)
+      .catch(() => null);
+  }
+
+  function autoLoad(){
+    const jobs = [
+      fetchJSON(JSON_FILES.rai.weekly).then(d => ({ kind:'index', idx:'rai', freq:'weekly', d })),
+      fetchJSON(JSON_FILES.rai.daily).then(d => ({ kind:'index', idx:'rai', freq:'daily', d })),
+      fetchJSON(JSON_FILES.nps.weekly).then(d => ({ kind:'index', idx:'nps', freq:'weekly', d })),
+      fetchJSON(JSON_FILES.nps.daily).then(d => ({ kind:'index', idx:'nps', freq:'daily', d })),
+      fetchJSON(PRICES_JSON_FILES.weekly).then(d => ({ kind:'prices', freq:'weekly', d })),
+      fetchJSON(PRICES_JSON_FILES.daily).then(d => ({ kind:'prices', freq:'daily', d })),
+      fetchJSON(BACKTEST_JSON_FILE).then(d => ({ kind:'backtest', d })),
+    ];
+    return Promise.all(jobs).then(results => {
+      let any = false;
+      results.forEach(r => {
+        if(!r.d) return;
+        any = true;
+        if(r.kind === 'index'){
+          safeSet(STORAGE_KEYS[r.idx][r.freq], JSON.stringify(r.d));
+        } else if(r.kind === 'backtest'){
+          safeSet(BACKTEST_STORAGE_KEY, JSON.stringify(r.d));
+        } else {
+          assetPricesMem[r.freq] = r.d;
+          safeSet(PRICES_STORAGE_KEYS[r.freq], JSON.stringify(r.d)); // best-effort; may silently fail if large
+        }
+      });
+      if(any){ autoMode = true; loadActive(); }
+      return any;
+    });
+  }
+
+  root.refreshBtn.addEventListener('click', () => {
+    root.refreshBtn.textContent = '불러오는 중...';
+    autoLoad().then(ok => {
+      root.refreshBtn.textContent = '↻ 새로고침';
+      if(!ok) alert('데이터 파일을 찾지 못했습니다.\n\nrun_dashboard.bat으로 열었는지, 같은 폴더에 4개의 json 파일이 있는지 확인해주세요.\n(파일을 더블클릭으로 직접 연 경우엔 브라우저 보안 정책상 자동으로 읽을 수 없어 "데이터 업로드" 버튼을 써야 합니다.)');
+    });
+  });
+
+  function init(){
+    updateToggleUI();
+    autoLoad().then(ok => {
+      if(ok){
+        setInterval(autoLoad, 5 * 60 * 1000);
+        return;
+      }
+      loadActive();
+    });
+  }
+
+  init();
+})();
+</script>
