@@ -337,6 +337,21 @@
   .rai-v2-bad{color:var(--riskoff);background:var(--riskoff)18;border:1px solid var(--riskoff)44}
   .rai-v2-neutral{color:var(--neutral);background:var(--neutral)18;border:1px solid var(--neutral)44}
   .rai-v2-source{font-size:10.5px;color:var(--text-3);line-height:1.6}
+
+  .rai-v2-empty-shell{padding:28px 22px}
+  .rai-v2-empty-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:18px}
+  .rai-v2-empty-card{background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .rai-v2-empty-title{font-size:17px;font-weight:700;margin-bottom:7px}
+  .rai-v2-empty-sub{font-size:12px;color:var(--text-2);line-height:1.7}
+  .rai-v2-status-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+  .rai-v2-status-row:last-child{border-bottom:none}
+  .rai-v2-status-name{font-size:11px;font-weight:600}
+  .rai-v2-status-desc{font-size:10px;color:var(--text-3);margin-top:3px}
+  .rai-v2-status-pill{font:600 10px 'IBM Plex Mono',monospace;padding:4px 8px;border-radius:10px;white-space:nowrap}
+  .rai-v2-code{margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:8px;background:#070b0f;color:var(--text-2);font:10.5px/1.6 'IBM Plex Mono',monospace;overflow:auto}
+  .rai-v2-action-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+  .rai-v2-notice{margin-top:14px;padding:11px 13px;border-left:3px solid var(--warn);background:var(--warn)0d;color:var(--text-2);font-size:10.5px;line-height:1.6}
+  @media(max-width:800px){.rai-v2-empty-grid{grid-template-columns:1fr}}
   @media(max-width:640px){.rai-v2-kpi-val{font-size:19px}.rai-v2-table-wrap{font-size:11px}}
   @media (max-width:640px){
     .rai-hero{grid-template-columns:1fr;text-align:center;}
@@ -739,7 +754,58 @@
   function renderEmpty(idx, freq){
     idx = idx || 'rai';
     if(idx === 'rai_v2'){
-      root.content.innerHTML = `<div class="rai-empty"><div class="rai-empty-title">RAI v2 Historical Risk Engine 데이터가 없습니다</div><p>같은 폴더의 <b>${RAI_V2_JSON_FILE}</b>을 자동으로 불러오거나, 상단 데이터 업로드 버튼으로 RAI v2 JSON을 올리세요.<br><br>필수 컬럼: date, sp500, vix, wti, us10y. 선택 컬럼: dxy, hy, move, gold, copper, breadth.</p><button class="rai-btn" onclick="document.getElementById('raiFileInput').click()">RAI v2 JSON 업로드</button></div>`; return;
+      root.content.innerHTML = `
+      <div class="rai-v2-empty-shell">
+        <div class="rai-hero">
+          <div>
+            <div class="rai-hero-num" style="font-size:28px">RAI v2</div>
+            <div class="rai-hero-label">HISTORICAL RISK ENGINE · DATA PIPELINE</div>
+          </div>
+          <div class="rai-hero-meta">
+            <span class="rai-badge" style="color:${getVar('--warn')};background:${getVar('--warn')}18;border:1px solid ${getVar('--warn')}55"><span class="dot" style="background:${getVar('--warn')}"></span>DATA NOT CONNECTED</span>
+            <div class="rai-v2-muted" style="margin-top:8px">분석 엔진은 준비되어 있습니다. 시장 데이터만 연결하면 Historical Similarity와 Crash Probability가 계산됩니다.</div>
+          </div>
+        </div>
+        <div class="rai-v2-empty-grid">
+          <div class="rai-v2-empty-card">
+            <div class="rai-v2-empty-title">무엇을 연결해야 하나?</div>
+            <div class="rai-v2-empty-sub">RAI v2는 <b>현재 시장 상태와 과거 시장 상태의 유사도</b>를 비교합니다. 따라서 날짜별 S&P 500과 위험지표가 같은 날짜축으로 정렬되어 있어야 합니다.</div>
+            <div class="rai-v2-status-row"><div><div class="rai-v2-status-name">S&P 500</div><div class="rai-v2-status-desc">benchmark / drawdown event 기준</div></div><span class="rai-v2-status-pill rai-v2-ok">REQUIRED</span></div>
+            <div class="rai-v2-status-row"><div><div class="rai-v2-status-name">VIX</div><div class="rai-v2-status-desc">equity volatility / tail stress</div></div><span class="rai-v2-status-pill rai-v2-ok">CORE</span></div>
+            <div class="rai-v2-status-row"><div><div class="rai-v2-status-name">WTI · US 10Y</div><div class="rai-v2-status-desc">macro / inflation / rates regime</div></div><span class="rai-v2-status-pill rai-v2-ok">CORE</span></div>
+            <div class="rai-v2-status-row"><div><div class="rai-v2-status-name">DXY · HY · MOVE</div><div class="rai-v2-status-desc">liquidity / credit / rates volatility</div></div><span class="rai-v2-status-pill rai-v2-neutral">EXTENDED</span></div>
+            <div class="rai-v2-status-row"><div><div class="rai-v2-status-name">Gold · Copper · Breadth</div><div class="rai-v2-status-desc">cross-asset / cyclicality / market internals</div></div><span class="rai-v2-status-pill rai-v2-neutral">EXTENDED</span></div>
+            <div class="rai-v2-action-row"><button class="rai-btn" onclick="document.getElementById('raiFileInput').click()">RAI v2 JSON 업로드</button><button class="rai-btn ghost" onclick="window.__raiV2Demo()">DEMO 데이터 실행</button></div>
+            <div class="rai-v2-notice">DEMO 데이터는 화면과 계산 엔진의 작동 여부를 확인하기 위한 <b>가상 데이터</b>입니다. 실제 투자판단에는 사용할 수 없습니다.</div>
+          </div>
+          <div class="rai-v2-empty-card">
+            <div class="rai-v2-empty-title">RAI v2 JSON schema</div>
+            <div class="rai-v2-empty-sub">최소한 아래 5개 필드를 권장합니다. 나머지는 입력 가능할 때 자동으로 사용됩니다.</div>
+            <div class="rai-v2-code">{
+  "indexType": "RAI_V2",
+  "frequency": "daily",
+  "rows": [
+    {
+      "date": "2026-09-08",
+      "sp500": 6500,
+      "vix": 15.2,
+      "wti": 64.1,
+      "us10y": 4.05,
+      "dxy": 98.4,
+      "hy": 2.85,
+      "move": 92.1,
+      "gold": 3500,
+      "copper": 4.55,
+      "breadth": 68.2
+    }
+  ]
+}</div>
+            <div class="rai-v2-empty-sub" style="margin-top:13px"><b>필수:</b> date, sp500, vix, wti, us10y<br><b>선택:</b> dxy, hy, move, gold, copper, breadth</div>
+          </div>
+        </div>
+        <div class="rai-panel" style="margin-top:18px"><p class="rai-panel-title">Institutional workflow</p><div class="rai-grid-2"><div><p class="rai-v2-muted"><b>01 · Data</b><br>1990~현재 일별 시장 데이터 → 날짜 정렬 → 결측/중복/이상치 검사</p><p class="rai-v2-muted"><b>02 · Feature</b><br>historical percentile, 20D/60D momentum, cross-asset state vector 생성</p><p class="rai-v2-muted"><b>03 · Event</b><br>S&P 500 running peak-to-trough drawdown을 distinct episode로 분리</p></div><div><p class="rai-v2-muted"><b>04 · Similarity</b><br>현재와 과거의 state vector를 비교해 Historical Similarity Score 산출</p><p class="rai-v2-muted"><b>05 · Probability</b><br>유사 국면 이후의 실제 future minimum drawdown으로 P(-5/-10/-20%) 계산</p><p class="rai-v2-muted"><b>06 · Validation</b><br>walk-forward / Brier / calibration / ROC-AUC로 out-of-sample 검증</p></div></div></div>
+      </div>`;
+      return;
     }
     if(idx === 'backtest'){
       root.content.innerHTML = `
@@ -1327,6 +1393,30 @@
   }
 
 
+  // ------------------------------------------------------------
+  // RAI v2 DEMO DATA — synthetic only, never real market history.
+  // ------------------------------------------------------------
+  window.__raiV2Demo = function(){
+    const rows=[]; const start=new Date('1990-01-02T00:00:00Z');
+    let px=350,vix=20,wti=25,us10y=8.2,dxy=95,hy=4,move=110,gold=400,copper=1.2,breadth=55;
+    let regime=0;
+    for(let i=0;i<36*252;i++){
+      const d=new Date(start.getTime()+i*86400000), dow=d.getUTCDay(); if(dow===0||dow===6) continue;
+      if(i%700===0&&i>0) regime=(regime+1)%5;
+      const shock=(Math.random()-0.5)*0.012+(regime===3?-0.0025:regime===4?0.0012:0);
+      if(i>0&&Math.random()<0.0025){px*=0.82+Math.random()*0.12;vix+=12+Math.random()*20;hy+=0.8+Math.random()*1.4;breadth-=12+Math.random()*20;}
+      px*=Math.max(0.97,1+shock);
+      vix=Math.max(9,vix*0.985+Math.abs(shock)*800+(Math.random()-0.5)*1.8);
+      wti=Math.max(10,wti*(1+(Math.random()-0.5)*0.035)); us10y=Math.max(0.4,us10y+(Math.random()-0.5)*0.06);
+      dxy=Math.max(70,dxy+(Math.random()-0.5)*0.45); hy=Math.max(2,hy*0.995+Math.abs(shock)*80+(Math.random()-0.5)*0.08);
+      move=Math.max(50,move*0.99+Math.abs(shock)*650+(Math.random()-0.5)*3); gold=Math.max(200,gold*(1+(Math.random()-0.5)*0.018));
+      copper=Math.max(0.7,copper*(1+(Math.random()-0.5)*0.025)); breadth=Math.max(8,Math.min(92,breadth*0.995+(Math.random()-0.5)*2-shock*180));
+      rows.push({date:d.toISOString().slice(0,10),sp500:+px.toFixed(2),vix:+vix.toFixed(2),wti:+wti.toFixed(2),us10y:+us10y.toFixed(3),dxy:+dxy.toFixed(2),hy:+hy.toFixed(3),move:+move.toFixed(2),gold:+gold.toFixed(2),copper:+copper.toFixed(3),breadth:+breadth.toFixed(2)});
+    }
+    const demo={indexType:'RAI_V2',version:'2.0-DEMO',frequency:'daily',benchmark:'SP500',metadata:{source:'SYNTHETIC DEMO — NOT REAL MARKET DATA',generatedAt:new Date().toISOString()},rows};
+    raiV2Data=demo; safeSet(RAI_V2_STORAGE_KEY,JSON.stringify(demo)); activeIndex='rai_v2'; updateToggleUI(); renderRAIV2(demo);
+  };
+
   // ============================================================
   // RAI v2 — HISTORICAL RISK ENGINE
   // Hedge-fund style: no look-ahead, event de-duplication,
@@ -1416,8 +1506,10 @@
   }
 
   function v2FutureMinDD(rows,i,h){
-    if(i>=rows.length-1)return null; const end=Math.min(rows.length-1,i+h), base=rows[i].sp500; let min=Infinity;
-    for(let j=i+1;j<=end;j++) min=Math.min(min,rows[j].sp500/base-1); return min===Infinity?null:min;
+    if(i+h>=rows.length)return null;
+    const base=rows[i].sp500; if(!Number.isFinite(base)||base<=0)return null;
+    let min=Infinity; for(let j=i+1;j<=i+h;j++){if(!Number.isFinite(rows[j].sp500))return null; min=Math.min(min,rows[j].sp500/base-1);}
+    return min===Infinity?null:min;
   }
   function v2EventIndexSet(events){const bad=new Set();for(const e of events){for(let i=Math.max(0,e.start-RAI_V2_CFG.analogueCooldown);i<=Math.min(e.end+RAI_V2_CFG.analogueCooldown,1000000);i++)bad.add(i);}return bad;}
 
