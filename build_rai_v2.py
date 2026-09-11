@@ -19,6 +19,14 @@ CORE:
 - 인터넷에서 실제 데이터를 가져옵니다.
 - 데이터를 임의로 만들거나 빈 날짜를 임의의 값으로 채우지 않습니다.
 - 선택 데이터(DXY/HY/MOVE/Gold/Copper/Breadth)는 다음 단계에서 추가합니다.
+
+v2.0-core 대비 변경점 (안정성 수정):
+- S&P 500 소스를 Stooq -> Yahoo Finance(yfinance)로 교체.
+  Stooq는 GitHub Actions 같은 자동화 요청(봇)을 차단하는 경우가 많아,
+  에러 없이 "0 observations"로 조용히 실패하는 문제가 있었습니다.
+- FRED 요청에 재시도(최대 3회, 지수 백오프)를 추가.
+  CI 환경에서 외부 서버가 일시적으로 느리거나 응답이 없을 때
+  TimeoutError로 바로 죽지 않고 몇 번 더 시도합니다.
 """
 
 import csv
@@ -26,15 +34,15 @@ import io
 import json
 import time
 import urllib.request
+import urllib.error
 from datetime import datetime, timezone
 from pathlib import Path
 
+import yfinance as yf
+
 OUTPUT = Path("rai_v2_market_daily.json")
 
-# Stooq: S&P 500 일별 지수 데이터
-STOOQ_SP500_URL = "https://stooq.com/q/d/l/?s=%5Espx&i=d"
-
-# FRED CSV endpoints
+# FRED CSV endpoints (VIX/WTI/US10Y만 - S&P 500은 아래에서 yfinance로 받음)
 FRED_URLS = {
     "vix": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VIXCLS",
     "wti": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILWTICO",
@@ -43,16 +51,34 @@ FRED_URLS = {
 
 START_DATE = "1990-01-01"
 
+MAX_RETRIES = 3
+RETRY_BACKOFF_SECONDS = [3, 8, 20]  # wait times between attempts
+REQUEST_TIMEOUT = 90
+
 
 def download_text(url: str) -> str:
-    req = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": "RAI-V2-Market-Risk-Engine/1.0"
-        },
-    )
-    with urllib.request.urlopen(req, timeout=60) as response:
-        return response.read().decode("utf-8-sig")
+    """Fetch a URL as text, retrying on timeouts/transient network errors."""
+    last_err = None
+    for attempt in range(1, MAX_RETRIES + 1):
+        req = urllib.request.Request(
+            url,
+            headers={
+                "User-Agent": "RAI-V2-Market-Risk-Engine/1.0",
+                "Accept": "text/csv,*/*",
+            },
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT) as response:
+                return response.read().decode("utf-8-sig")
+        except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
+            last_err = e
+            if attempt < MAX_RETRIES:
+                wait = RETRY_BACKOFF_SECONDS[min(attempt - 1, len(RETRY_BACKOFF_SECONDS) - 1)]
+                print(f"      ! attempt {attempt}/{MAX_RETRIES} failed ({e}); retrying in {wait}s ...")
+                time.sleep(wait)
+            else:
+                print(f"      ! attempt {attempt}/{MAX_RETRIES} failed ({e}); giving up.")
+    raise last_err
 
 
 def parse_float(value):
@@ -87,18 +113,32 @@ def normalize_date(value: str):
     return None
 
 
-def parse_stooq_sp500(text: str):
-    reader = csv.DictReader(io.StringIO(text))
-    result = {}
-
-    for row in reader:
-        date = normalize_date(row.get("Date", ""))
-        close = parse_float(row.get("Close"))
-
-        if date and close is not None and date >= START_DATE:
-            result[date] = close
-
-    return result
+def fetch_sp500_yfinance(start_date: str):
+    """S&P 500 close prices from Yahoo Finance (replaces the bot-blocked Stooq source)."""
+    last_err = None
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            df = yf.download("^GSPC", start=start_date, interval="1d",
+                              auto_adjust=True, progress=False)
+            if df.empty:
+                raise RuntimeError("yfinance returned no rows for ^GSPC")
+            closes = df["Close"]
+            if hasattr(closes, "iloc") and closes.ndim > 1:
+                closes = closes.iloc[:, 0]
+            result = {}
+            for dt, v in closes.items():
+                if v == v:  # not NaN
+                    result[dt.strftime("%Y-%m-%d")] = float(v)
+            return result
+        except Exception as e:
+            last_err = e
+            if attempt < MAX_RETRIES:
+                wait = RETRY_BACKOFF_SECONDS[min(attempt - 1, len(RETRY_BACKOFF_SECONDS) - 1)]
+                print(f"      ! attempt {attempt}/{MAX_RETRIES} failed ({e}); retrying in {wait}s ...")
+                time.sleep(wait)
+            else:
+                print(f"      ! attempt {attempt}/{MAX_RETRIES} failed ({e}); giving up.")
+    raise last_err
 
 
 def parse_fred(text: str):
@@ -131,8 +171,8 @@ def collect():
     print("RAI v2 Market Data Collector")
     print("=" * 70)
 
-    print("\n[1/4] S&P 500 다운로드...")
-    sp500 = parse_stooq_sp500(download_text(STOOQ_SP500_URL))
+    print("\n[1/4] S&P 500 다운로드 (Yahoo Finance)...")
+    sp500 = fetch_sp500_yfinance(START_DATE)
     print(f"      {len(sp500):,} observations")
 
     time.sleep(0.5)
@@ -194,7 +234,7 @@ def collect():
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "start_date_requested": START_DATE,
         "source": {
-            "sp500": "Stooq",
+            "sp500": "Yahoo Finance (^GSPC)",
             "vix": "FRED VIXCLS / CBOE",
             "wti": "FRED DCOILWTICO / EIA",
             "us10y": "FRED DGS10 / Board of Governors",
