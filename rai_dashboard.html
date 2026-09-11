@@ -316,6 +316,28 @@
     white-space:nowrap;
   }
   .rai-table tr:last-child td{border-bottom:none;}
+
+  /* ===== RAI v2 Historical Risk Engine ===== */
+  .rai-v2-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .rai-v2-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+  .rai-v2-kpi{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:14px}
+  .rai-v2-kpi-label{font-size:10px;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px}
+  .rai-v2-kpi-val{font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:700}
+  .rai-v2-muted{font-size:11.5px;color:var(--text-2);line-height:1.55}
+  .rai-v2-riskbar{height:10px;border-radius:5px;background:linear-gradient(90deg,var(--riskon),var(--neutral),var(--warn),var(--riskoff));position:relative;margin:10px 0 5px}
+  .rai-v2-riskmark{position:absolute;top:-5px;width:2px;height:20px;background:var(--text-1);box-shadow:0 0 8px rgba(232,237,242,.7)}
+  .rai-v2-grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+  .rai-v2-meter{height:7px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:6px}
+  .rai-v2-meter>span{display:block;height:100%;border-radius:4px}
+  .rai-v2-small{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--text-2)}
+  .rai-v2-table-wrap{overflow-x:auto;max-height:560px;overflow-y:auto}
+  .rai-v2-chip{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:3px 7px;border-radius:9px;margin:2px}
+  .rai-v2-ok{color:var(--riskon);background:var(--riskon)18;border:1px solid var(--riskon)44}
+  .rai-v2-warn{color:var(--warn);background:var(--warn)18;border:1px solid var(--warn)44}
+  .rai-v2-bad{color:var(--riskoff);background:var(--riskoff)18;border:1px solid var(--riskoff)44}
+  .rai-v2-neutral{color:var(--neutral);background:var(--neutral)18;border:1px solid var(--neutral)44}
+  .rai-v2-source{font-size:10.5px;color:var(--text-3);line-height:1.6}
+  @media(max-width:640px){.rai-v2-kpi-val{font-size:19px}.rai-v2-table-wrap{font-size:11px}}
   @media (max-width:640px){
     .rai-hero{grid-template-columns:1fr;text-align:center;}
     .rai-hero-num{font-size:48px;}
@@ -370,6 +392,7 @@
         <button data-idx="rai" id="raiIdxRai">RAI</button>
         <button data-idx="nps" id="raiIdxNps">NPS 위기지수</button>
         <button data-idx="backtest" id="raiIdxBacktest">백테스트</button>
+        <button data-idx="rai_v2" id="raiIdxRaiV2">RAI v2</button>
       </div>
       <div class="rai-toggle" id="raiFreqToggle">
         <button data-freq="weekly" id="raiFreqWeekly">주간</button>
@@ -416,6 +439,7 @@
     idxRai: document.getElementById('raiIdxRai'),
     idxNps: document.getElementById('raiIdxNps'),
     idxBacktest: document.getElementById('raiIdxBacktest'),
+    idxRaiV2: document.getElementById('raiIdxRaiV2'),
     freqToggleWrap: document.getElementById('raiFreqToggle'),
     freqWeekly: document.getElementById('raiFreqWeekly'),
     freqDaily: document.getElementById('raiFreqDaily'),
@@ -500,6 +524,9 @@
   const BACKTEST_STORAGE_KEY = 'dashboard-data-backtest';
   const BACKTEST_JSON_FILE = 'backtest_results.json';
   let lastBacktestData = null;
+  const RAI_V2_STORAGE_KEY = 'dashboard-data-rai-v2';
+  const RAI_V2_JSON_FILE = 'rai_v2_market_daily.json';
+  let raiV2Data = null;
 
   let activeIndex = 'rai';
   let activeFreq = 'weekly';
@@ -516,12 +543,18 @@
     root.idxRai.classList.toggle('active', activeIndex === 'rai');
     root.idxNps.classList.toggle('active', activeIndex === 'nps');
     root.idxBacktest.classList.toggle('active', activeIndex === 'backtest');
+    root.idxRaiV2.classList.toggle('active', activeIndex === 'rai_v2');
     root.freqWeekly.classList.toggle('active', activeFreq === 'weekly');
     root.freqDaily.classList.toggle('active', activeFreq === 'daily');
-    root.freqToggleWrap.style.display = activeIndex === 'backtest' ? 'none' : 'flex';
+    root.freqToggleWrap.style.display = (activeIndex === 'backtest' || activeIndex === 'rai_v2') ? 'none' : 'flex';
   }
 
   function loadActive(){
+    if(activeIndex === 'rai_v2'){
+      const raw = safeGet(RAI_V2_STORAGE_KEY);
+      if(raw){ try { raiV2Data = JSON.parse(raw); renderRAIV2(raiV2Data); return; } catch(e){} }
+      renderEmpty('rai_v2', null); root.updated.textContent = 'no data loaded'; return;
+    }
     if(activeIndex === 'backtest'){
       const raw = safeGet(BACKTEST_STORAGE_KEY);
       if(raw){
@@ -542,6 +575,7 @@
   root.idxRai.addEventListener('click', () => { activeIndex = 'rai'; updateToggleUI(); loadActive(); });
   root.idxNps.addEventListener('click', () => { activeIndex = 'nps'; updateToggleUI(); loadActive(); });
   root.idxBacktest.addEventListener('click', () => { activeIndex = 'backtest'; updateToggleUI(); loadActive(); });
+  root.idxRaiV2.addEventListener('click', () => { activeIndex = 'rai_v2'; updateToggleUI(); loadActive(); });
   root.freqWeekly.addEventListener('click', () => { activeFreq = 'weekly'; updateToggleUI(); loadActive(); });
   root.freqDaily.addEventListener('click', () => { activeFreq = 'daily'; updateToggleUI(); loadActive(); });
 
@@ -550,6 +584,7 @@
   root.uploadBtn.addEventListener('click', () => root.fileInput.click());
   root.fileInput.addEventListener('change', handleFile);
   root.resetBtn.addEventListener('click', () => {
+    if(activeIndex === 'rai_v2'){ safeRemove(RAI_V2_STORAGE_KEY); raiV2Data=null; renderEmpty('rai_v2', null); root.updated.textContent='no data loaded'; return; }
     if(activeIndex === 'backtest'){
       safeRemove(BACKTEST_STORAGE_KEY);
       renderEmpty('backtest', null);
@@ -580,6 +615,12 @@
           updateToggleUI();
           loadActive();
           return;
+        }
+        if(parsed.indexType === 'RAI_V2' || parsed.model === 'RAI_V2' || Array.isArray(parsed.rows) && parsed.rows.length && parsed.rows[0].vix != null){
+          const rows = parsed.rows || parsed.series || [];
+          if(!Array.isArray(rows) || !rows.length){ alert('RAI v2 JSON에 rows/series 배열이 없습니다.'); return; }
+          parsed.indexType = 'RAI_V2'; parsed.rows = rows;
+          safeSet(RAI_V2_STORAGE_KEY, JSON.stringify(parsed)); raiV2Data=parsed; activeIndex='rai_v2'; updateToggleUI(); renderRAIV2(parsed); return;
         }
         if(parsed.indexType === 'BACKTEST'){
           if(!parsed.summary || !Array.isArray(parsed.summary)){
@@ -697,6 +738,9 @@
 
   function renderEmpty(idx, freq){
     idx = idx || 'rai';
+    if(idx === 'rai_v2'){
+      root.content.innerHTML = `<div class="rai-empty"><div class="rai-empty-title">RAI v2 Historical Risk Engine 데이터가 없습니다</div><p>같은 폴더의 <b>${RAI_V2_JSON_FILE}</b>을 자동으로 불러오거나, 상단 데이터 업로드 버튼으로 RAI v2 JSON을 올리세요.<br><br>필수 컬럼: date, sp500, vix, wti, us10y. 선택 컬럼: dxy, hy, move, gold, copper, breadth.</p><button class="rai-btn" onclick="document.getElementById('raiFileInput').click()">RAI v2 JSON 업로드</button></div>`; return;
+    }
     if(idx === 'backtest'){
       root.content.innerHTML = `
         <div class="rai-empty">
@@ -723,8 +767,9 @@
   }
 
   function render(data){
-    if(data.indexType === 'NPS'){
-      renderNPS(data);
+    if(data.indexType === 'RAI_V2'){
+      renderRAIV2(data);
+    } else if(data.indexType === 'NPS'){
     } else if(data.indexType === 'BACKTEST'){
       renderBacktest(data);
     } else {
@@ -1281,6 +1326,191 @@
     svgEl.addEventListener('mouseleave', onLeave);
   }
 
+
+  // ============================================================
+  // RAI v2 — HISTORICAL RISK ENGINE
+  // Hedge-fund style: no look-ahead, event de-duplication,
+  // weighted nearest-neighbour probability, Bayesian smoothing.
+  // ============================================================
+  const RAI_V2_CFG = {
+    minHistory: 252,
+    similarityLookback: 756,
+    cooldown: 60,
+    analogueCooldown: 60,
+    topN: 12,
+    k: 50,
+    horizons: { d5:5, d20:20, d60:60, d120:120 },
+    thresholds: { p5:{dd:-0.05,h:20}, p10:{dd:-0.10,h:60}, p20:{dd:-0.20,h:120} },
+    weights: { vix:.18, hy:.18, breadth:.15, move:.12, us10y:.10, wti:.08, dxy:.08, copper:.06, gold:.05 }
+  };
+  const RAI_V2_LABEL = {vix:'VIX',hy:'HY Spread',breadth:'Breadth',move:'MOVE',us10y:'US 10Y',wti:'WTI',dxy:'Dollar',copper:'Copper',gold:'Gold'};
+  const RAI_V2_KEYS = Object.keys(RAI_V2_CFG.weights);
+
+  function v2Num(v){ const x=Number(v); return Number.isFinite(x)?x:null; }
+  function v2Clamp(x,a,b){ return Math.max(a,Math.min(b,x)); }
+  function v2Pct(x){ return x==null?'—':(x*100).toFixed(1)+'%'; }
+  function v2Fmt(x,d=2){ return x==null?'—':Number(x).toFixed(d); }
+  function v2Mean(a){ const x=a.filter(Number.isFinite); return x.length?x.reduce((p,c)=>p+c,0)/x.length:null; }
+  function v2Median(a){ const x=a.filter(Number.isFinite).sort((a,b)=>a-b); if(!x.length)return null; const m=Math.floor(x.length/2); return x.length%2?x[m]:(x[m-1]+x[m])/2; }
+  function v2Quantile(a,q){ const x=a.filter(Number.isFinite).sort((a,b)=>a-b); if(!x.length)return null; const p=(x.length-1)*q, lo=Math.floor(p), hi=Math.ceil(p); return lo===hi?x[lo]:x[lo]+(x[hi]-x[lo])*(p-lo); }
+  function v2Std(a){ const x=a.filter(Number.isFinite); if(x.length<2)return null; const m=v2Mean(x); return Math.sqrt(x.reduce((s,v)=>s+(v-m)*(v-m),0)/(x.length-1)); }
+  function v2NormDate(d){ return String(d||'').slice(0,10); }
+
+  function v2NormalizeRows(data){
+    const src=(data.rows||data.series||[]).map(r=>{
+      const pick=(...ks)=>{for(const k of ks){if(r[k]!=null)return v2Num(r[k]);}return null;};
+      return {date:v2NormDate(r.date||r.datetime), sp500:pick('sp500','SP500','spy','SPX','close'),
+        vix:pick('vix','VIX','VIXCLS'), wti:pick('wti','WTI','cl','oil'), us10y:pick('us10y','US10Y','dgs10','DGS10','treasury10y'),
+        dxy:pick('dxy','DXY','dollar','DTWEXBGS'), hy:pick('hy','HY','hy_spread','hy_oas','BAMLH0A0HYM2'),
+        move:pick('move','MOVE'), gold:pick('gold','Gold','xau'), copper:pick('copper','Copper','hg'), breadth:pick('breadth','Breadth','pct_above_200dma')};
+    }).filter(r=>r.date&&r.sp500!=null).sort((a,b)=>a.date.localeCompare(b.date));
+    const dedup=[]; for(const r of src){if(!dedup.length||dedup[dedup.length-1].date!==r.date)dedup.push(r);} return dedup;
+  }
+
+  // Expanding percentile: at t, only observations strictly before t are eligible.
+  function v2HistoricalPercentile(vals,i,lookback){
+    const x=vals[i]; if(x==null)return null; const lo=Math.max(0,i-lookback), a=[];
+    for(let j=lo;j<i;j++) if(vals[j]!=null) a.push(vals[j]);
+    if(a.length<50)return null; let le=0; for(const z of a) if(z<=x)le++; return le/a.length;
+  }
+  function v2Change(vals,i,n){ if(i<n||vals[i]==null||vals[i-n]==null||vals[i-n]===0)return null; return vals[i]/vals[i-n]-1; }
+  function v2Slope(vals,i,n){ if(i<n||vals[i]==null||vals[i-n]==null)return null; return (vals[i]-vals[i-n])/n; }
+
+  function v2FeatureRows(rows){
+    const vals={}; RAI_V2_KEYS.forEach(k=>vals[k]=rows.map(r=>r[k]));
+    return rows.map((r,i)=>{
+      const f={date:r.date,sp500:r.sp500};
+      for(const k of RAI_V2_KEYS){
+        const raw=r[k], p=v2HistoricalPercentile(vals[k],i,RAI_V2_CFG.similarityLookback);
+        f[k]={value:raw,pct:p,chg20:v2Change(vals[k],i,20),chg60:v2Change(vals[k],i,60),slope20:v2Slope(vals[k],i,20)};
+      }
+      // Structure: risk-off when VIX/HY/MOVE rise, breadth falls, dollar rises.
+      f.dd20=v2Change(vals.sp500,i,20); f.dd60=v2Change(vals.sp500,i,60);
+      return f;
+    });
+  }
+
+  function v2DrawdownSeries(rows){
+    let peak=-Infinity, peakDate=null; return rows.map(r=>{if(r.sp500>peak){peak=r.sp500;peakDate=r.date;} return {date:r.date,peak,peakDate,dd:r.sp500/peak-1};});
+  }
+
+  // Distinct drawdown episodes. A new episode starts after recovery to the old peak.
+  function v2DetectEvents(rows){
+    const dd=v2DrawdownSeries(rows), events=[]; let active=null, lastEnd=-9999;
+    for(let i=0;i<dd.length;i++){
+      const x=dd[i];
+      if(!active && x.dd<=-0.05 && i-lastEnd>RAI_V2_CFG.cooldown){
+        active={start:i,startDate:x.peakDate,peakDate:x.peakDate,peak: x.peak, trough:i,troughDate:x.date,minDD:x.dd};
+      }
+      if(active){
+        if(x.dd<active.minDD){active.minDD=x.dd;active.trough=i;active.troughDate=x.date;}
+        if(x.dd>=-0.01 && i>active.start+5){
+          active.end=i;active.endDate=x.date;active.duration=i-active.start;
+          active.severity=active.minDD<=-.30?'CRASH':active.minDD<=-.20?'BEAR':active.minDD<=-.10?'CORRECTION':'DRAWDOWN';
+          events.push(active); lastEnd=i; active=null;
+        }
+      }
+    }
+    if(active){active.end=dd.length-1;active.endDate=dd[dd.length-1].date;active.duration=active.end-active.start;active.severity=active.minDD<=-.30?'CRASH':active.minDD<=-.20?'BEAR':active.minDD<=-.10?'CORRECTION':'DRAWDOWN';events.push(active);}
+    return events;
+  }
+
+  function v2FutureMinDD(rows,i,h){
+    if(i>=rows.length-1)return null; const end=Math.min(rows.length-1,i+h), base=rows[i].sp500; let min=Infinity;
+    for(let j=i+1;j<=end;j++) min=Math.min(min,rows[j].sp500/base-1); return min===Infinity?null:min;
+  }
+  function v2EventIndexSet(events){const bad=new Set();for(const e of events){for(let i=Math.max(0,e.start-RAI_V2_CFG.analogueCooldown);i<=Math.min(e.end+RAI_V2_CFG.analogueCooldown,1000000);i++)bad.add(i);}return bad;}
+
+  function v2Similarity(a,b){
+    let sw=0, s=0, parts={};
+    for(const k of RAI_V2_KEYS){
+      const wa=RAI_V2_CFG.weights[k], ap=a[k]?.pct, bp=b[k]?.pct;
+      if(ap==null||bp==null)continue;
+      // percentile distance: 0 identical, 1 maximally different
+      const sim=1-Math.min(1,Math.abs(ap-bp)); parts[k]=sim; s+=wa*sim; sw+=wa;
+    }
+    if(!sw)return {score:null,parts};
+    return {score:100*s/sw,parts};
+  }
+
+  function v2Regime(score){return score==null?'데이터 부족':score>=75?'극단적 역사위험':score>=60?'높은 역사위험':score>=45?'중립/경계':'낮은 역사위험';}
+  function v2RiskColor(score){return score>=75?getVar('--riskoff'):score>=60?getVar('--warn'):score>=45?getVar('--neutral'):getVar('--riskon');}
+
+  function v2WeightedProbability(analogs, threshold,horizon){
+    const usable=analogs.filter(a=>a.future!=null); if(!usable.length)return {p:null,n:0,neff:0,lo:null,hi:null};
+    const weights=usable.map(a=>Math.exp((a.similarity-80)/8)); const total=weights.reduce((a,b)=>a+b,0);
+    let hit=0,w2=0; usable.forEach((a,j)=>{hit+=weights[j]*(a.future<=threshold?1:0);w2+=weights[j]*weights[j];});
+    const phat=hit/total, neff=total*total/w2;
+    // Jeffreys Beta(0.5,0.5) posterior approximation with effective sample size.
+    const alpha=.5+phat*neff, beta=.5+(1-phat)*neff, mean=alpha/(alpha+beta);
+    const se=Math.sqrt(mean*(1-mean)/(alpha+beta+1));
+    return {p:mean,n:usable.length,neff,lo:v2Clamp(mean-1.96*se,0,1),hi:v2Clamp(mean+1.96*se,0,1)};
+  }
+
+  function v2BuildEngine(data){
+    let rows=v2NormalizeRows(data); if(rows.length<RAI_V2_CFG.minHistory)return {error:'관측치가 '+rows.length+'개뿐입니다. 최소 '+RAI_V2_CFG.minHistory+'개 이상 필요합니다.',rows};
+    const features=v2FeatureRows(rows), events=v2DetectEvents(rows), dd=v2DrawdownSeries(rows);
+    const current=features[features.length-1], currentIdx=features.length-1, excluded=v2EventIndexSet(events), analogs=[];
+    for(let i=Math.max(RAI_V2_CFG.minHistory,0);i<features.length-RAI_V2_CFG.horizons.d20;i++){
+      if(i===currentIdx||excluded.has(i))continue;
+      const sim=v2Similarity(current,features[i]); if(sim.score==null)continue;
+      analogs.push({i,date:features[i].date,similarity:sim.score,parts:sim.parts,dd:dd[i].dd,
+        future5:v2FutureMinDD(rows,i,5),future20:v2FutureMinDD(rows,i,20),future60:v2FutureMinDD(rows,i,60),future120:v2FutureMinDD(rows,i,120)});
+    }
+    analogs.sort((a,b)=>b.similarity-a.similarity);
+    const top=analogs.slice(0,RAI_V2_CFG.k);
+    const p5=v2WeightedProbability(top,-.05,20),p10=v2WeightedProbability(top,-.10,60),p20=v2WeightedProbability(top,-.20,120);
+    // Current historical risk is the inverse of similarity to calm history, but probability dominates.
+    const riskFromP=100*(.20*(p5.p||0)+.35*(p10.p||0)+.45*(p20.p||0));
+    const nearest=top.slice(0,Math.min(10,top.length));
+    const similarityScore=top.length?v2Mean(nearest.map(x=>x.similarity)):null;
+    const historicalRisk=v2Clamp(.65*riskFromP + .35*(100-(similarityScore||50)),0,100);
+    const currentDD=dd[dd.length-1].dd;
+    const contributions=RAI_V2_KEYS.map(k=>({key:k,label:RAI_V2_LABEL[k],weight:RAI_V2_CFG.weights[k],pct:current[k]?.pct,value:current[k]?.value,contribution:current[k]?.pct==null?null:RAI_V2_CFG.weights[k]*Math.abs((current[k].pct-.5)*2)*100})).filter(x=>x.contribution!=null).sort((a,b)=>b.contribution-a.contribution);
+    return {rows,features,events,dd,current,currentDD,top,allAnalogs:analogs,prob:{p5,p10,p20},historicalRisk,similarityScore,contributions,generatedAt:new Date().toISOString()};
+  }
+
+  function v2FeatureRowsHtml(current){
+    return RAI_V2_KEYS.map(k=>{const f=current[k], pct=f?.pct, c=pct==null?getVar('--text-3'):pct>=.8?getVar('--riskoff'):pct>=.6?getVar('--warn'):pct<=.2?getVar('--riskon'):getVar('--neutral');
+      return `<div class="rai-row"><div><div class="rai-row-name">${RAI_V2_LABEL[k]}</div><div class="rai-row-sub">${pct==null?'데이터 없음':'historical percentile '+(pct*100).toFixed(1)+'%'}</div></div><div class="rai-row-right"><span class="rai-row-val">${v2Fmt(f?.value,2)}</span><span class="rai-status-pill" style="color:${c};background:${c}22;border:1px solid ${c}55">${pct==null?'N/A':pct>=.8?'TAIL':pct<=.2?'CALM':'NORMAL'}</span></div></div>`;}).join('');
+  }
+  function v2ProbCard(title,p,desc){
+    if(!p||p.p==null)return `<div class="rai-v2-kpi"><div class="rai-v2-kpi-label">${title}</div><div class="rai-v2-kpi-val">—</div><div class="rai-v2-muted">${desc}</div></div>`;
+    const c=v2RiskColor(p.p*100); return `<div class="rai-v2-kpi"><div class="rai-v2-kpi-label">${title}</div><div class="rai-v2-kpi-val" style="color:${c}">${(p.p*100).toFixed(1)}%</div><div class="rai-v2-muted">95% CI ${(p.lo*100).toFixed(1)}–${(p.hi*100).toFixed(1)}% · N ${p.n} · N_eff ${p.neff.toFixed(1)}<br>${desc}</div></div>`;
+  }
+  function renderRAIV2(data){
+    const e=v2BuildEngine(data); if(e.error){root.content.innerHTML=`<div class="rai-empty"><div class="rai-empty-title">RAI v2 계산 불가</div><p>${e.error}</p></div>`;return;}
+    raiV2Data=data; const score=e.historicalRisk, color=v2RiskColor(score), cur=e.current, events=e.events;
+    const ddColor=e.currentDD<=-.2?getVar('--riskoff'):e.currentDD<=-.1?getVar('--warn'):getVar('--neutral');
+    const topRows=e.top.slice(0,RAI_V2_CFG.topN).map((a,n)=>`<tr><td>${n+1}</td><td>${a.date}</td><td style="color:${v2RiskColor(100-a.similarity)}">${a.similarity.toFixed(1)}</td><td>${v2Pct(a.dd)}</td><td>${v2Pct(a.future20)}</td><td>${v2Pct(a.future60)}</td><td>${v2Pct(a.future120)}</td></tr>`).join('');
+    const eventRows=events.slice().reverse().slice(0,30).map(x=>`<tr><td>${x.peakDate}</td><td>${x.troughDate}</td><td style="color:${getVar('--riskoff')}">${v2Pct(x.minDD)}</td><td>${x.duration}D</td><td>${x.severity}</td></tr>`).join('');
+    const contrib=e.contributions.slice(0,9).map(x=>`<div class="rai-row"><div><div class="rai-row-name">${x.label}</div><div class="rai-row-sub">weight ${(x.weight*100).toFixed(0)}% · pct ${x.pct!=null?(x.pct*100).toFixed(1):'—'}%</div></div><div style="width:38%"><div class="rai-v2-small">risk contribution ${x.contribution.toFixed(1)}</div><div class="rai-v2-meter"><span style="width:${v2Clamp(x.contribution,0,100)}%;background:${v2RiskColor(x.contribution)}"></span></div></div></div>`).join('');
+    root.content.innerHTML=`
+      <div class="rai-v2-nav"><button class="rai-btn" onclick="window.__raiV2Render('overview')">Overview</button><button class="rai-btn ghost" onclick="window.__raiV2Render('analogues')">Historical Analogues</button><button class="rai-btn ghost" onclick="window.__raiV2Render('events')">Crash Database</button><button class="rai-btn ghost" onclick="window.__raiV2Render('method')">Methodology</button></div>
+      <div id="raiV2Main">
+      <div class="rai-hero"><div><div class="rai-hero-num" style="color:${color}">${score.toFixed(1)}</div><div class="rai-hero-label">Historical Downside Risk · ${cur.date}</div></div><div class="rai-hero-meta"><span class="rai-badge" style="color:${color};background:${color}22;border:1px solid ${color}55"><span class="dot" style="background:${color}"></span>${v2Regime(score)}</span><div class="rai-v2-riskbar"><div class="rai-v2-riskmark" style="left:calc(${score}% - 1px)"></div></div><div class="rai-spectrum-labels"><span>0 Low</span><span>50 Neutral</span><span>100 Tail Risk</span></div><div class="rai-v2-muted">현재 S&P 500 drawdown ${v2Pct(e.currentDD)} · Historical Similarity ${v2Fmt(e.similarityScore,1)}</div></div></div>
+      <div class="rai-v2-kpis">${v2ProbCard('P(-5%) · 20D',e.prob.p5,'향후 20거래일 내 최대 낙폭 ≤ -5%')}${v2ProbCard('P(-10%) · 60D',e.prob.p10,'향후 60거래일 내 최대 낙폭 ≤ -10%')}${v2ProbCard('P(-20%) · 120D',e.prob.p20,'향후 120거래일 내 최대 낙폭 ≤ -20%')}${`<div class="rai-v2-kpi"><div class="rai-v2-kpi-label">Crash Episodes</div><div class="rai-v2-kpi-val">${events.length}</div><div class="rai-v2-muted">-5% 이상 distinct drawdown episodes<br>cooldown ${RAI_V2_CFG.cooldown} trading days</div></div>`}</div>
+      <div class="rai-grid-2"><div class="rai-panel"><p class="rai-panel-title">Current Market State</p>${v2FeatureRowsHtml(cur)}</div><div class="rai-panel"><p class="rai-panel-title">Risk Contribution</p>${contrib}</div></div>
+      <div class="rai-panel" style="margin-top:16px"><p class="rai-panel-title">Top Historical Analogues</p><div class="rai-v2-table-wrap"><table class="rai-table"><thead><tr><th>#</th><th>DATE</th><th>SIM</th><th>DD AT T</th><th>MIN DD 20D</th><th>MIN DD 60D</th><th>MIN DD 120D</th></tr></thead><tbody>${topRows||'<tr><td colspan="7">No analogues</td></tr>'}</tbody></table></div></div>
+      <div class="rai-panel" style="margin-top:16px"><p class="rai-panel-title">Model Integrity</p><p class="rai-v2-muted">관측치 ${e.rows.length.toLocaleString()}개 · ${e.rows[0].date} ~ ${e.rows[e.rows.length-1].date} · analogue pool ${e.allAnalogs.length.toLocaleString()}개 · top-K ${RAI_V2_CFG.k}. Percentile은 각 날짜 직전 데이터만 사용하며, 동일 위기 구간과 ±${RAI_V2_CFG.analogueCooldown}일은 analogue에서 제외합니다.</p><p class="rai-v2-source">중요: HY/MOVE/Breadth/DXY/Copper/Gold는 입력 데이터의 출처·역사적 커버리지에 따라 표본이 달라질 수 있습니다. 프록시를 사용했다면 JSON metadata에 명시하세요. 이 화면은 통계적 위험 추정치이며 예측을 보장하지 않습니다.</p></div></div>`;
+    root.updated.textContent='RAI v2 · '+cur.date+' · '+e.rows.length.toLocaleString()+' observations';
+    window.__raiV2Engine=e;
+  }
+  window.__raiV2Render=function(view){
+    const e=window.__raiV2Engine; if(!e)return;
+    const main=document.getElementById('raiV2Main'); if(!main)return;
+    if(view==='overview'){renderRAIV2(raiV2Data);return;}
+    if(view==='analogues'){
+      const rows=e.allAnalogs.slice(0,100).map((a,n)=>`<tr><td>${n+1}</td><td>${a.date}</td><td>${a.similarity.toFixed(1)}</td><td>${v2Pct(a.dd)}</td><td>${v2Pct(a.future20)}</td><td>${v2Pct(a.future60)}</td><td>${v2Pct(a.future120)}</td></tr>`).join('');
+      main.innerHTML=`<div class="rai-panel"><p class="rai-panel-title">Historical Similarity Ranking</p><p class="rai-v2-muted">현재 시장 상태와 과거 각 시점의 percentile state vector를 비교했습니다. score가 높을수록 구조가 유사합니다.</p><div class="rai-v2-table-wrap"><table class="rai-table"><thead><tr><th>#</th><th>DATE</th><th>SIM</th><th>DD</th><th>MIN DD 20D</th><th>MIN DD 60D</th><th>MIN DD 120D</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
+    } else if(view==='events'){
+      const rows=e.events.slice().reverse().map((x,n)=>`<tr><td>${n+1}</td><td>${x.peakDate}</td><td>${x.troughDate}</td><td>${x.endDate}</td><td style="color:${getVar('--riskoff')}">${v2Pct(x.minDD)}</td><td>${x.duration}</td><td>${x.severity}</td></tr>`).join('');
+      main.innerHTML=`<div class="rai-panel"><p class="rai-panel-title">Distinct S&P 500 Drawdown Event Database</p><p class="rai-v2-muted">이벤트는 running peak 대비 -5%를 처음 하회한 구간을 시작으로, 이전 고점의 99% 이상 회복할 때 종료합니다. 같은 위기의 중복 표본을 줄이기 위해 cooldown을 적용했습니다.</p><div class="rai-v2-table-wrap"><table class="rai-table"><thead><tr><th>#</th><th>PEAK</th><th>TROUGH</th><th>RECOVERY</th><th>MAX DD</th><th>DURATION</th><th>SEVERITY</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
+    } else {
+      main.innerHTML=`<div class="rai-panel"><p class="rai-panel-title">RAI v2 Methodology — Institutional Design</p><div class="rai-grid-2"><div><p class="rai-v2-muted"><b>1. State construction</b><br>VIX, HY spread, Breadth, MOVE, US 10Y, WTI, Dollar, Copper, Gold를 raw level + historical percentile + 20/60D change로 변환합니다. percentile은 look-ahead를 막기 위해 해당 날짜 이전 관측치만 사용합니다.</p><p class="rai-v2-muted"><b>2. Event engine</b><br>S&P 500 running peak-to-trough drawdown을 -5% 기준 distinct episode로 탐지하고 -10/-20/-30% severity를 기록합니다.</p></div><div><p class="rai-v2-muted"><b>3. Similarity engine</b><br>현재 state와 과거 state의 percentile distance를 9개 변수 가중평균합니다. 기본 weight는 VIX 18%, HY 18%, Breadth 15%, MOVE 12%, 10Y 10%, WTI 8%, Dollar 8%, Copper 6%, Gold 5%입니다.</p><p class="rai-v2-muted"><b>4. Probability engine</b><br>Top-K analogues의 미래 최소 drawdown을 기준으로 P(-5%/20D), P(-10%/60D), P(-20%/120D)를 계산하고 similarity-weighted Bayesian smoothing을 적용합니다. N_eff도 함께 표시합니다.</p></div></div><p class="rai-v2-muted"><b>5. Validation requirement</b><br>실전 운용 전에는 반드시 walk-forward validation으로 Brier score, calibration, ROC-AUC, precision/recall을 검증하고, 변수 weight는 out-of-sample 성과를 기준으로 재추정해야 합니다. 현재 HTML은 분석 엔진/시각화 레이어이며, 과거 전체 데이터를 자동으로 내려받는 기능은 포함하지 않습니다.</p></div>`;
+    }
+  };
+
   // ---------- auto fetch (works when served via run_dashboard.bat / http server) ----------
   function fetchJSON(path){
     return fetch(path, { cache: 'no-store' })
@@ -1297,6 +1527,7 @@
       fetchJSON(PRICES_JSON_FILES.weekly).then(d => ({ kind:'prices', freq:'weekly', d })),
       fetchJSON(PRICES_JSON_FILES.daily).then(d => ({ kind:'prices', freq:'daily', d })),
       fetchJSON(BACKTEST_JSON_FILE).then(d => ({ kind:'backtest', d })),
+      fetchJSON(RAI_V2_JSON_FILE).then(d => ({ kind:'rai_v2', d })),
     ];
     return Promise.all(jobs).then(results => {
       let any = false;
@@ -1307,6 +1538,8 @@
           safeSet(STORAGE_KEYS[r.idx][r.freq], JSON.stringify(r.d));
         } else if(r.kind === 'backtest'){
           safeSet(BACKTEST_STORAGE_KEY, JSON.stringify(r.d));
+        } else if(r.kind === 'rai_v2'){
+          safeSet(RAI_V2_STORAGE_KEY, JSON.stringify(r.d)); raiV2Data=r.d;
         } else {
           assetPricesMem[r.freq] = r.d;
           safeSet(PRICES_STORAGE_KEYS[r.freq], JSON.stringify(r.d)); // best-effort; may silently fail if large
