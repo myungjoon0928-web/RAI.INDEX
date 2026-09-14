@@ -1,113 +1,8 @@
 {
-  "generatedAt": "2026-09-13T21:07:04",
+  "generatedAt": "2026-09-14T21:07:39",
   "indexType": "NPS",
   "frequency": "daily",
   "series": [
-    {
-      "date": "2023-09-12",
-      "indicators": {
-        "VIX": {
-          "value": 14.23,
-          "pct": 14.4,
-          "status": "\uc548\uc815"
-        },
-        "EMBI": {
-          "value": 258.0,
-          "pct": 33.6,
-          "status": "\uc548\uc815"
-        },
-        "GSCI_YOY": {
-          "value": -5.77,
-          "pct": 26.8,
-          "status": "\uc548\uc815"
-        },
-        "HY": {
-          "value": 384.0,
-          "pct": 49.0,
-          "status": "\uc8fc\uc758"
-        },
-        "FX_VOL": {
-          "value": 5.02,
-          "pct": 26.2,
-          "status": "\uc548\uc815"
-        }
-      },
-      "modelA": 26.8,
-      "modelB": 10.6,
-      "modelC": 27.5,
-      "score": 21.7,
-      "stage": "\uc815\uc0c1"
-    },
-    {
-      "date": "2023-09-13",
-      "indicators": {
-        "VIX": {
-          "value": 13.48,
-          "pct": 11.2,
-          "status": "\uc548\uc815"
-        },
-        "EMBI": {
-          "value": 261.0,
-          "pct": 35.2,
-          "status": "\uc548\uc815"
-        },
-        "GSCI_YOY": {
-          "value": -6.79,
-          "pct": 25.1,
-          "status": "\uc548\uc815"
-        },
-        "HY": {
-          "value": 385.0,
-          "pct": 49.4,
-          "status": "\uc8fc\uc758"
-        },
-        "FX_VOL": {
-          "value": 4.94,
-          "pct": 25.4,
-          "status": "\uc548\uc815"
-        }
-      },
-      "modelA": 25.7,
-      "modelB": 9.8,
-      "modelC": 26.5,
-      "score": 20.7,
-      "stage": "\uc815\uc0c1"
-    },
-    {
-      "date": "2023-09-14",
-      "indicators": {
-        "VIX": {
-          "value": 12.82,
-          "pct": 8.9,
-          "status": "\uc548\uc815"
-        },
-        "EMBI": {
-          "value": 256.0,
-          "pct": 32.5,
-          "status": "\uc548\uc815"
-        },
-        "GSCI_YOY": {
-          "value": -5.05,
-          "pct": 27.9,
-          "status": "\uc548\uc815"
-        },
-        "HY": {
-          "value": 378.0,
-          "pct": 46.9,
-          "status": "\uc8fc\uc758"
-        },
-        "FX_VOL": {
-          "value": 5.27,
-          "pct": 28.9,
-          "status": "\uc548\uc815"
-        }
-      },
-      "modelA": 24.3,
-      "modelB": 9.1,
-      "modelC": 25.1,
-      "score": 19.5,
-      "stage": "\uc815\uc0c1"
-    },
     {
       "date": "2023-09-15",
       "indicators": {
@@ -26332,7 +26227,7 @@
           "status": "\uc548\uc815"
         },
         "EMBI": {
-          "value": 131.0,
+          "value": 132.0,
           "pct": 5.0,
           "status": "\uc548\uc815"
         },
@@ -26342,8 +26237,8 @@
           "status": "\uc704\ud5d8"
         },
         "HY": {
-          "value": 270.0,
-          "pct": 10.2,
+          "value": 265.0,
+          "pct": 9.4,
           "status": "\uc548\uc815"
         },
         "FX_VOL": {
@@ -26352,10 +26247,45 @@
           "status": "\uc548\uc815"
         }
       },
-      "modelA": 27.4,
-      "modelB": 8.0,
-      "modelC": 27.3,
-      "score": 20.9,
+      "modelA": 27.2,
+      "modelB": 7.9,
+      "modelC": 27.2,
+      "score": 20.8,
+      "stage": "\uc815\uc0c1"
+    },
+    {
+      "date": "2026-09-14",
+      "indicators": {
+        "VIX": {
+          "value": 17.1,
+          "pct": 33.7,
+          "status": "\uc548\uc815"
+        },
+        "EMBI": {
+          "value": 132.0,
+          "pct": 5.0,
+          "status": "\uc548\uc815"
+        },
+        "GSCI_YOY": {
+          "value": 37.49,
+          "pct": 91.8,
+          "status": "\uc704\ud5d8"
+        },
+        "HY": {
+          "value": 265.0,
+          "pct": 9.4,
+          "status": "\uc548\uc815"
+        },
+        "FX_VOL": {
+          "value": 5.03,
+          "pct": 26.3,
+          "status": "\uc548\uc815"
+        }
+      },
+      "modelA": 31.2,
+      "modelB": 9.1,
+      "modelC": 31.0,
+      "score": 23.8,
       "stage": "\uc815\uc0c1"
     }
   ]
