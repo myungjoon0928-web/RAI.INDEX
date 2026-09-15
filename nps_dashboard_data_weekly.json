@@ -1,43 +1,8 @@
 {
-  "generatedAt": "2026-09-14T21:07:39",
+  "generatedAt": "2026-09-15T21:07:48",
   "indexType": "NPS",
   "frequency": "weekly",
   "series": [
-    {
-      "date": "2023-09-15",
-      "indicators": {
-        "VIX": {
-          "value": 13.79,
-          "pct": 12.3,
-          "status": "\uc548\uc815"
-        },
-        "EMBI": {
-          "value": 256.0,
-          "pct": 32.5,
-          "status": "\uc548\uc815"
-        },
-        "GSCI_YOY": {
-          "value": -5.49,
-          "pct": 27.2,
-          "status": "\uc548\uc815"
-        },
-        "HY": {
-          "value": 379.0,
-          "pct": 47.2,
-          "status": "\uc8fc\uc758"
-        },
-        "FX_VOL": {
-          "value": 5.29,
-          "pct": 29.2,
-          "status": "\uc548\uc815"
-        }
-      },
-      "modelA": 25.7,
-      "modelB": 10.0,
-      "modelC": 26.4,
-      "score": 20.7,
-      "stage": "\uc815\uc0c1"
-    },
     {
       "date": "2023-09-22",
       "indicators": {
@@ -5499,38 +5464,38 @@
       "stage": "\uc815\uc0c1"
     },
     {
-      "date": "2026-09-14",
+      "date": "2026-09-15",
       "indicators": {
         "VIX": {
-          "value": 17.1,
-          "pct": 33.7,
+          "value": 17.2,
+          "pct": 34.4,
           "status": "\uc548\uc815"
         },
         "EMBI": {
-          "value": 132.0,
+          "value": 135.0,
           "pct": 5.0,
           "status": "\uc548\uc815"
         },
         "GSCI_YOY": {
-          "value": 37.49,
-          "pct": 91.8,
+          "value": 39.54,
+          "pct": 92.5,
           "status": "\uc704\ud5d8"
         },
         "HY": {
-          "value": 265.0,
-          "pct": 9.4,
+          "value": 271.0,
+          "pct": 10.4,
           "status": "\uc548\uc815"
         },
         "FX_VOL": {
-          "value": 5.03,
-          "pct": 26.3,
+          "value": 4.96,
+          "pct": 25.6,
           "status": "\uc548\uc815"
         }
       },
-      "modelA": 31.2,
-      "modelB": 9.1,
-      "modelC": 31.0,
-      "score": 23.8,
+      "modelA": 31.7,
+      "modelB": 10.0,
+      "modelC": 31.5,
+      "score": 24.4,
       "stage": "\uc815\uc0c1"
     }
   ]

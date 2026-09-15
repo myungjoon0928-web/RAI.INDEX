@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T21:07:39",
+  "generatedAt": "2026-09-15T21:07:48",
   "indexType": "BACKTEST",
   "benchmark": "SPX",
   "minWarmupWeeks": 104,
@@ -19,13 +19,13 @@
   ],
   "baseline": {
     "4": {
-      "avg": 0.9,
+      "avg": 0.89,
       "median": 1.44,
       "hitRate": 62.8
     },
     "12": {
       "avg": 2.66,
-      "median": 3.19,
+      "median": 3.16,
       "hitRate": 72.2
     },
     "26": {
@@ -47,7 +47,7 @@
       "avg_fwd_return_pct": 5.45,
       "median_fwd_return_pct": 1.59,
       "hit_rate_pct": 80.0,
-      "baseline_avg_fwd_return_pct": 0.9,
+      "baseline_avg_fwd_return_pct": 0.89,
       "baseline_hit_rate_pct": 62.8,
       "edge_vs_baseline_pct": 4.55
     },
@@ -71,7 +71,7 @@
       "hit_rate_pct": 100.0,
       "baseline_avg_fwd_return_pct": 6.11,
       "baseline_hit_rate_pct": 75.8,
-      "edge_vs_baseline_pct": 12.39
+      "edge_vs_baseline_pct": 12.4
     },
     {
       "threshold": -1.0,
@@ -91,7 +91,7 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 0.9,
+      "baseline_avg_fwd_return_pct": 0.89,
       "baseline_hit_rate_pct": 62.8,
       "edge_vs_baseline_pct": null
     },
@@ -135,7 +135,7 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 0.9,
+      "baseline_avg_fwd_return_pct": 0.89,
       "baseline_hit_rate_pct": 62.8,
       "edge_vs_baseline_pct": null
     },
@@ -179,7 +179,7 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 0.9,
+      "baseline_avg_fwd_return_pct": 0.89,
       "baseline_hit_rate_pct": 62.8,
       "edge_vs_baseline_pct": null
     },
@@ -234,7 +234,7 @@
       "threshold": -1.0,
       "date": "2024-08-26",
       "rai_realtime": -1.03,
-      "rai_full_sample_lookahead": -1.16,
+      "rai_full_sample_lookahead": -1.17,
       "SPX_close": 5648.4,
       "drawdown_into_signal_pct": 0.0,
       "fwd_4w_pct": 1.59,
@@ -245,8 +245,8 @@
     {
       "threshold": -1.0,
       "date": "2025-03-31",
-      "rai_realtime": -1.18,
-      "rai_full_sample_lookahead": -1.27,
+      "rai_realtime": -1.19,
+      "rai_full_sample_lookahead": -1.28,
       "SPX_close": 5074.08,
       "drawdown_into_signal_pct": -17.0,
       "fwd_4w_pct": 12.07,
@@ -257,8 +257,8 @@
     {
       "threshold": -1.0,
       "date": "2025-04-14",
-      "rai_realtime": -1.15,
-      "rai_full_sample_lookahead": -1.25,
+      "rai_realtime": -1.16,
+      "rai_full_sample_lookahead": -1.26,
       "SPX_close": 5282.7,
       "drawdown_into_signal_pct": -13.6,
       "fwd_4w_pct": 12.79,
