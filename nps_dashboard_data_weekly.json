@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-20T21:07:20",
+  "generatedAt": "2026-09-21T21:07:33",
   "indexType": "NPS",
   "frequency": "weekly",
   "series": [
@@ -5472,7 +5472,7 @@
           "status": "\uc548\uc815"
         },
         "EMBI": {
-          "value": 137.0,
+          "value": 134.0,
           "pct": 5.0,
           "status": "\uc548\uc815"
         },
@@ -5482,8 +5482,8 @@
           "status": "\uc704\ud5d8"
         },
         "HY": {
-          "value": 270.0,
-          "pct": 10.2,
+          "value": 268.0,
+          "pct": 9.9,
           "status": "\uc548\uc815"
         },
         "FX_VOL": {
@@ -5492,10 +5492,45 @@
           "status": "\uc548\uc815"
         }
       },
+      "modelA": 24.6,
+      "modelB": 7.1,
+      "modelC": 24.7,
+      "score": 18.8,
+      "stage": "\uc815\uc0c1"
+    },
+    {
+      "date": "2026-09-21",
+      "indicators": {
+        "VIX": {
+          "value": 14.87,
+          "pct": 18.2,
+          "status": "\uc548\uc815"
+        },
+        "EMBI": {
+          "value": 134.0,
+          "pct": 5.0,
+          "status": "\uc548\uc815"
+        },
+        "GSCI_YOY": {
+          "value": 34.28,
+          "pct": 90.6,
+          "status": "\uc704\ud5d8"
+        },
+        "HY": {
+          "value": 268.0,
+          "pct": 9.9,
+          "status": "\uc548\uc815"
+        },
+        "FX_VOL": {
+          "value": 4.55,
+          "pct": 21.5,
+          "status": "\uc548\uc815"
+        }
+      },
       "modelA": 24.7,
-      "modelB": 7.3,
+      "modelB": 7.0,
       "modelC": 24.8,
-      "score": 18.9,
+      "score": 18.8,
       "stage": "\uc815\uc0c1"
     }
   ]
