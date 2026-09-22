@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-21T21:07:32",
+  "generatedAt": "2026-09-22T21:07:17",
   "indexType": "NPS",
   "frequency": "daily",
   "series": [
@@ -26277,8 +26277,8 @@
           "status": "\uc548\uc815"
         },
         "FX_VOL": {
-          "value": 4.55,
-          "pct": 21.5,
+          "value": 4.56,
+          "pct": 21.6,
           "status": "\uc548\uc815"
         }
       },
@@ -26286,6 +26286,41 @@
       "modelB": 7.0,
       "modelC": 24.8,
       "score": 18.8,
+      "stage": "\uc815\uc0c1"
+    },
+    {
+      "date": "2026-09-22",
+      "indicators": {
+        "VIX": {
+          "value": 14.21,
+          "pct": 14.3,
+          "status": "\uc548\uc815"
+        },
+        "EMBI": {
+          "value": 134.0,
+          "pct": 5.0,
+          "status": "\uc548\uc815"
+        },
+        "GSCI_YOY": {
+          "value": 34.59,
+          "pct": 90.8,
+          "status": "\uc704\ud5d8"
+        },
+        "HY": {
+          "value": 268.0,
+          "pct": 9.9,
+          "status": "\uc548\uc815"
+        },
+        "FX_VOL": {
+          "value": 4.51,
+          "pct": 21.1,
+          "status": "\uc548\uc815"
+        }
+      },
+      "modelA": 23.1,
+      "modelB": 6.6,
+      "modelC": 23.3,
+      "score": 17.7,
       "stage": "\uc815\uc0c1"
     }
   ]
