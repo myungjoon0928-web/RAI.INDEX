@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T21:07:34",
+  "generatedAt": "2026-09-27T21:07:47",
   "indexType": "RAI",
   "frequency": "weekly",
   "windowLabel": "13-week",
@@ -160,7 +160,7 @@
     {
       "date": "2021-11-29",
       "slope": 0.05101,
-      "rai": -0.331,
+      "rai": -0.332,
       "regime": "Neutral"
     },
     {
@@ -219,7 +219,7 @@
     },
     {
       "date": "2022-02-07",
-      "slope": -1.61811,
+      "slope": -1.61812,
       "rai": -1.453,
       "regime": "Risk-Aversion"
     },
@@ -249,7 +249,7 @@
     },
     {
       "date": "2022-03-14",
-      "slope": 1.25823,
+      "slope": 1.25822,
       "rai": 0.479,
       "regime": "Neutral"
     },
@@ -291,8 +291,8 @@
     },
     {
       "date": "2022-05-02",
-      "slope": 0.7195,
-      "rai": 0.118,
+      "slope": 0.71949,
+      "rai": 0.117,
       "regime": "Neutral"
     },
     {
@@ -327,14 +327,14 @@
     },
     {
       "date": "2022-06-13",
-      "slope": -2.63393,
+      "slope": -2.63394,
       "rai": -2.135,
       "regime": "Risk-Aversion"
     },
     {
       "date": "2022-06-20",
       "slope": -3.67521,
-      "rai": -2.835,
+      "rai": -2.834,
       "regime": "Risk-Aversion"
     },
     {
@@ -358,12 +358,12 @@
     {
       "date": "2022-07-18",
       "slope": -2.93671,
-      "rai": -2.339,
+      "rai": -2.338,
       "regime": "Risk-Aversion"
     },
     {
       "date": "2022-07-25",
-      "slope": -2.47017,
+      "slope": -2.47016,
       "rai": -2.025,
       "regime": "Risk-Aversion"
     },
@@ -447,7 +447,7 @@
     },
     {
       "date": "2022-10-31",
-      "slope": 0.17678,
+      "slope": 0.17679,
       "rai": -0.247,
       "regime": "Neutral"
     },
@@ -538,7 +538,7 @@
     {
       "date": "2023-02-13",
       "slope": 1.89858,
-      "rai": 0.91,
+      "rai": 0.909,
       "regime": "Neutral"
     },
     {
@@ -574,7 +574,7 @@
     {
       "date": "2023-03-27",
       "slope": 2.31231,
-      "rai": 1.188,
+      "rai": 1.187,
       "regime": "Risk-Seeking"
     },
     {
@@ -609,7 +609,7 @@
     },
     {
       "date": "2023-05-08",
-      "slope": 0.83386,
+      "slope": 0.83385,
       "rai": 0.194,
       "regime": "Neutral"
     },
@@ -639,7 +639,7 @@
     },
     {
       "date": "2023-06-12",
-      "slope": -0.04227,
+      "slope": -0.04228,
       "rai": -0.394,
       "regime": "Neutral"
     },
@@ -663,14 +663,14 @@
     },
     {
       "date": "2023-07-10",
-      "slope": -0.26997,
+      "slope": -0.26996,
       "rai": -0.547,
       "regime": "Neutral"
     },
     {
       "date": "2023-07-17",
       "slope": 0.5765,
-      "rai": 0.022,
+      "rai": 0.021,
       "regime": "Neutral"
     },
     {
@@ -687,7 +687,7 @@
     },
     {
       "date": "2023-08-07",
-      "slope": 1.22796,
+      "slope": 1.22795,
       "rai": 0.459,
       "regime": "Neutral"
     },
@@ -735,31 +735,31 @@
     },
     {
       "date": "2023-10-02",
-      "slope": 0.48122,
+      "slope": 0.48123,
       "rai": -0.043,
       "regime": "Neutral"
     },
     {
       "date": "2023-10-09",
-      "slope": 0.7574,
+      "slope": 0.75741,
       "rai": 0.143,
       "regime": "Neutral"
     },
     {
       "date": "2023-10-16",
-      "slope": 1.06022,
+      "slope": 1.06023,
       "rai": 0.346,
       "regime": "Neutral"
     },
     {
       "date": "2023-10-23",
-      "slope": 1.8515,
+      "slope": 1.85151,
       "rai": 0.878,
       "regime": "Neutral"
     },
     {
       "date": "2023-10-30",
-      "slope": 1.25596,
+      "slope": 1.25597,
       "rai": 0.478,
       "regime": "Neutral"
     },
@@ -771,25 +771,25 @@
     },
     {
       "date": "2023-11-13",
-      "slope": 1.8593,
+      "slope": 1.85931,
       "rai": 0.883,
       "regime": "Neutral"
     },
     {
       "date": "2023-11-20",
-      "slope": 1.91804,
+      "slope": 1.91805,
       "rai": 0.923,
       "regime": "Neutral"
     },
     {
       "date": "2023-11-27",
-      "slope": 2.14429,
+      "slope": 2.1443,
       "rai": 1.075,
       "regime": "Risk-Seeking"
     },
     {
       "date": "2023-12-04",
-      "slope": 2.61719,
+      "slope": 2.6172,
       "rai": 1.392,
       "regime": "Risk-Seeking"
     },
@@ -807,25 +807,25 @@
     },
     {
       "date": "2023-12-25",
-      "slope": 1.97725,
+      "slope": 1.97726,
       "rai": 0.962,
       "regime": "Neutral"
     },
     {
       "date": "2024-01-01",
-      "slope": 3.00917,
-      "rai": 1.656,
+      "slope": 3.00918,
+      "rai": 1.655,
       "regime": "Risk-Seeking"
     },
     {
       "date": "2024-01-08",
-      "slope": 3.11735,
+      "slope": 3.11736,
       "rai": 1.728,
       "regime": "Risk-Seeking"
     },
     {
       "date": "2024-01-15",
-      "slope": 2.31489,
+      "slope": 2.3149,
       "rai": 1.189,
       "regime": "Risk-Seeking"
     },
@@ -856,7 +856,7 @@
     {
       "date": "2024-02-19",
       "slope": 1.92677,
-      "rai": 0.929,
+      "rai": 0.928,
       "regime": "Neutral"
     },
     {
@@ -897,14 +897,14 @@
     },
     {
       "date": "2024-04-08",
-      "slope": 3.77521,
+      "slope": 3.7752,
       "rai": 2.17,
       "regime": "Risk-Seeking"
     },
     {
       "date": "2024-04-15",
-      "slope": 3.46478,
-      "rai": 1.962,
+      "slope": 3.46477,
+      "rai": 1.961,
       "regime": "Risk-Seeking"
     },
     {
@@ -940,13 +940,13 @@
     {
       "date": "2024-05-27",
       "slope": 1.40433,
-      "rai": 0.578,
+      "rai": 0.577,
       "regime": "Neutral"
     },
     {
       "date": "2024-06-03",
       "slope": 1.31941,
-      "rai": 0.521,
+      "rai": 0.52,
       "regime": "Neutral"
     },
     {
@@ -1047,7 +1047,7 @@
     },
     {
       "date": "2024-09-30",
-      "slope": 0.60886,
+      "slope": 0.60885,
       "rai": 0.043,
       "regime": "Neutral"
     },
@@ -1078,7 +1078,7 @@
     {
       "date": "2024-11-04",
       "slope": 2.12776,
-      "rai": 1.064,
+      "rai": 1.063,
       "regime": "Risk-Seeking"
     },
     {
@@ -1102,13 +1102,13 @@
     {
       "date": "2024-12-02",
       "slope": 2.16797,
-      "rai": 1.091,
+      "rai": 1.09,
       "regime": "Risk-Seeking"
     },
     {
       "date": "2024-12-09",
       "slope": 2.15747,
-      "rai": 1.084,
+      "rai": 1.083,
       "regime": "Risk-Seeking"
     },
     {
@@ -1144,7 +1144,7 @@
     {
       "date": "2025-01-20",
       "slope": 1.97891,
-      "rai": 0.964,
+      "rai": 0.963,
       "regime": "Neutral"
     },
     {
@@ -1258,7 +1258,7 @@
     {
       "date": "2025-06-02",
       "slope": 1.04691,
-      "rai": 0.338,
+      "rai": 0.337,
       "regime": "Neutral"
     },
     {
@@ -1281,14 +1281,14 @@
     },
     {
       "date": "2025-06-30",
-      "slope": 1.77019,
+      "slope": 1.7702,
       "rai": 0.823,
       "regime": "Neutral"
     },
     {
       "date": "2025-07-07",
       "slope": 2.26474,
-      "rai": 1.156,
+      "rai": 1.155,
       "regime": "Risk-Seeking"
     },
     {
@@ -1449,13 +1449,13 @@
     },
     {
       "date": "2026-01-12",
-      "slope": 1.10977,
+      "slope": 1.10976,
       "rai": 0.38,
       "regime": "Neutral"
     },
     {
       "date": "2026-01-19",
-      "slope": 0.43208,
+      "slope": 0.43209,
       "rai": -0.076,
       "regime": "Neutral"
     },
@@ -1474,7 +1474,7 @@
     {
       "date": "2026-02-09",
       "slope": 0.19989,
-      "rai": -0.231,
+      "rai": -0.232,
       "regime": "Neutral"
     },
     {
@@ -1491,7 +1491,7 @@
     },
     {
       "date": "2026-03-02",
-      "slope": 2.39259,
+      "slope": 2.39258,
       "rai": 1.241,
       "regime": "Risk-Seeking"
     },
@@ -1504,7 +1504,7 @@
     {
       "date": "2026-03-16",
       "slope": 2.62651,
-      "rai": 1.399,
+      "rai": 1.398,
       "regime": "Risk-Seeking"
     },
     {
@@ -1528,7 +1528,7 @@
     {
       "date": "2026-04-13",
       "slope": 1.60082,
-      "rai": 0.71,
+      "rai": 0.709,
       "regime": "Neutral"
     },
     {
@@ -1558,7 +1558,7 @@
     {
       "date": "2026-05-18",
       "slope": 2.28864,
-      "rai": 1.172,
+      "rai": 1.171,
       "regime": "Risk-Seeking"
     },
     {
@@ -1665,8 +1665,8 @@
     },
     {
       "date": "2026-09-21",
-      "slope": 2.16799,
-      "rai": 1.091,
+      "slope": 2.19344,
+      "rai": 1.108,
       "regime": "Risk-Seeking"
     }
   ]
