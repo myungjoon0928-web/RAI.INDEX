@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T21:08:12",
+  "generatedAt": "2026-10-04T02:46:13",
   "indexType": "NPS",
   "frequency": "daily",
   "series": [
@@ -26352,7 +26352,7 @@
           "status": "\uc548\uc815"
         }
       },
-      "modelA": 28.8,
+      "modelA": 28.9,
       "modelB": 10.6,
       "modelC": 29.2,
       "score": 22.9,
