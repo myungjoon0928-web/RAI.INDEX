@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T21:08:37",
+  "generatedAt": "2026-10-10T21:07:13",
   "indexType": "NPS",
   "frequency": "weekly",
   "series": [
@@ -5477,7 +5477,7 @@
           "status": "\uc548\uc815"
         },
         "GSCI_YOY": {
-          "value": 32.81,
+          "value": 32.82,
           "pct": 89.7,
           "status": "\uc704\ud5d8"
         },
@@ -5487,8 +5487,8 @@
           "status": "\uc548\uc815"
         },
         "FX_VOL": {
-          "value": 4.28,
-          "pct": 18.8,
+          "value": 4.29,
+          "pct": 18.9,
           "status": "\uc548\uc815"
         }
       },
