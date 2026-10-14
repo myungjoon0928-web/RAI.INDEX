@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-13T02:23:37",
+  "generatedAt": "2026-10-14T00:05:18",
   "indexType": "BACKTEST",
   "benchmark": "SPX",
   "minWarmupWeeks": 104,
@@ -49,7 +49,7 @@
       "hit_rate_pct": 80.0,
       "baseline_avg_fwd_return_pct": 0.91,
       "baseline_hit_rate_pct": 63.6,
-      "edge_vs_baseline_pct": 4.53
+      "edge_vs_baseline_pct": 4.54
     },
     {
       "threshold": -1.0,
