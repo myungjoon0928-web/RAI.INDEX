@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-15T23:31:29",
+  "generatedAt": "2026-10-16T23:13:31",
   "indexType": "NPS",
   "frequency": "weekly",
   "series": [
@@ -5464,38 +5464,38 @@
       "stage": "\uc815\uc0c1"
     },
     {
-      "date": "2026-10-15",
+      "date": "2026-10-16",
       "indicators": {
         "VIX": {
-          "value": 16.46,
-          "pct": 28.7,
-          "status": "\uc548\uc815"
+          "value": 19.99,
+          "pct": 51.9,
+          "status": "\uc8fc\uc758"
         },
         "EMBI": {
-          "value": 156.0,
-          "pct": 6.1,
+          "value": 159.0,
+          "pct": 6.6,
           "status": "\uc548\uc815"
         },
         "GSCI_YOY": {
-          "value": 37.0,
-          "pct": 91.7,
+          "value": 38.78,
+          "pct": 92.3,
           "status": "\uc704\ud5d8"
         },
         "HY": {
-          "value": 325.0,
-          "pct": 27.5,
+          "value": 323.0,
+          "pct": 26.8,
           "status": "\uc548\uc815"
         },
         "FX_VOL": {
-          "value": 4.88,
-          "pct": 24.8,
+          "value": 4.96,
+          "pct": 25.6,
           "status": "\uc548\uc815"
         }
       },
-      "modelA": 32.1,
-      "modelB": 12.5,
-      "modelC": 32.3,
-      "score": 25.7,
+      "modelA": 41.6,
+      "modelB": 17.9,
+      "modelC": 41.3,
+      "score": 33.6,
       "stage": "\uc815\uc0c1"
     }
   ]
