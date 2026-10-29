@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-28T00:13:18",
+  "generatedAt": "2026-10-29T00:34:14",
   "indexType": "NPS",
   "frequency": "daily",
   "series": [
@@ -26262,8 +26262,8 @@
           "status": "\uc548\uc815"
         },
         "EMBI": {
-          "value": 174.0,
-          "pct": 9.3,
+          "value": 173.0,
+          "pct": 9.1,
           "status": "\uc548\uc815"
         },
         "GSCI_YOY": {
@@ -26272,20 +26272,55 @@
           "status": "\uc704\ud5d8"
         },
         "HY": {
-          "value": 330.0,
-          "pct": 29.3,
+          "value": 318.0,
+          "pct": 24.9,
           "status": "\uc548\uc815"
         },
         "FX_VOL": {
-          "value": 4.75,
-          "pct": 23.5,
+          "value": 4.73,
+          "pct": 23.3,
           "status": "\uc548\uc815"
         }
       },
-      "modelA": 36.1,
-      "modelB": 14.6,
-      "modelC": 36.2,
-      "score": 29.0,
+      "modelA": 35.4,
+      "modelB": 13.9,
+      "modelC": 35.4,
+      "score": 28.2,
+      "stage": "\uc815\uc0c1"
+    },
+    {
+      "date": "2026-10-28",
+      "indicators": {
+        "VIX": {
+          "value": 16.91,
+          "pct": 32.3,
+          "status": "\uc548\uc815"
+        },
+        "EMBI": {
+          "value": 173.0,
+          "pct": 9.1,
+          "status": "\uc548\uc815"
+        },
+        "GSCI_YOY": {
+          "value": 35.68,
+          "pct": 91.2,
+          "status": "\uc704\ud5d8"
+        },
+        "HY": {
+          "value": 318.0,
+          "pct": 24.9,
+          "status": "\uc548\uc815"
+        },
+        "FX_VOL": {
+          "value": 4.72,
+          "pct": 23.2,
+          "status": "\uc548\uc815"
+        }
+      },
+      "modelA": 33.8,
+      "modelB": 13.5,
+      "modelC": 33.9,
+      "score": 27.1,
       "stage": "\uc815\uc0c1"
     }
   ]
