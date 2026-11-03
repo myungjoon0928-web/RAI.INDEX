@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-02T00:11:18",
+  "generatedAt": "2026-11-03T02:44:38",
   "indexType": "BACKTEST",
   "benchmark": "SPX",
   "minWarmupWeeks": 104,
   "sampleStart": "2021-12-06",
-  "sampleEnd": "2026-10-26",
+  "sampleEnd": "2026-11-02",
   "horizons": [
     4,
     12,
@@ -19,24 +19,24 @@
   ],
   "baseline": {
     "4": {
-      "avg": 0.87,
-      "median": 1.4,
-      "hitRate": 63.1
+      "avg": 0.85,
+      "median": 1.39,
+      "hitRate": 62.8
     },
     "12": {
-      "avg": 2.83,
-      "median": 3.3,
-      "hitRate": 74.2
+      "avg": 2.81,
+      "median": 3.26,
+      "hitRate": 73.9
     },
     "26": {
-      "avg": 6.79,
-      "median": 7.88,
-      "hitRate": 78.7
+      "avg": 6.77,
+      "median": 7.82,
+      "hitRate": 78.8
     },
     "52": {
-      "avg": 15.75,
-      "median": 16.79,
-      "hitRate": 89.7
+      "avg": 15.73,
+      "median": 16.77,
+      "hitRate": 89.8
     }
   },
   "summary": [
@@ -47,9 +47,9 @@
       "avg_fwd_return_pct": 6.4,
       "median_fwd_return_pct": 6.34,
       "hit_rate_pct": 80.0,
-      "baseline_avg_fwd_return_pct": 0.87,
-      "baseline_hit_rate_pct": 63.1,
-      "edge_vs_baseline_pct": 5.53
+      "baseline_avg_fwd_return_pct": 0.85,
+      "baseline_hit_rate_pct": 62.8,
+      "edge_vs_baseline_pct": 5.54
     },
     {
       "threshold": -1.0,
@@ -58,9 +58,9 @@
       "avg_fwd_return_pct": 11.47,
       "median_fwd_return_pct": 11.54,
       "hit_rate_pct": 80.0,
-      "baseline_avg_fwd_return_pct": 2.83,
-      "baseline_hit_rate_pct": 74.2,
-      "edge_vs_baseline_pct": 8.64
+      "baseline_avg_fwd_return_pct": 2.81,
+      "baseline_hit_rate_pct": 73.9,
+      "edge_vs_baseline_pct": 8.66
     },
     {
       "threshold": -1.0,
@@ -69,9 +69,9 @@
       "avg_fwd_return_pct": 18.82,
       "median_fwd_return_pct": 18.12,
       "hit_rate_pct": 100.0,
-      "baseline_avg_fwd_return_pct": 6.79,
-      "baseline_hit_rate_pct": 78.7,
-      "edge_vs_baseline_pct": 12.03
+      "baseline_avg_fwd_return_pct": 6.77,
+      "baseline_hit_rate_pct": 78.8,
+      "edge_vs_baseline_pct": 12.05
     },
     {
       "threshold": -1.0,
@@ -80,9 +80,9 @@
       "avg_fwd_return_pct": 25.15,
       "median_fwd_return_pct": 24.79,
       "hit_rate_pct": 100.0,
-      "baseline_avg_fwd_return_pct": 15.75,
-      "baseline_hit_rate_pct": 89.7,
-      "edge_vs_baseline_pct": 9.4
+      "baseline_avg_fwd_return_pct": 15.73,
+      "baseline_hit_rate_pct": 89.8,
+      "edge_vs_baseline_pct": 9.42
     },
     {
       "threshold": -1.5,
@@ -91,8 +91,8 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 0.87,
-      "baseline_hit_rate_pct": 63.1,
+      "baseline_avg_fwd_return_pct": 0.85,
+      "baseline_hit_rate_pct": 62.8,
       "edge_vs_baseline_pct": null
     },
     {
@@ -102,8 +102,8 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 2.83,
-      "baseline_hit_rate_pct": 74.2,
+      "baseline_avg_fwd_return_pct": 2.81,
+      "baseline_hit_rate_pct": 73.9,
       "edge_vs_baseline_pct": null
     },
     {
@@ -113,8 +113,8 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 6.79,
-      "baseline_hit_rate_pct": 78.7,
+      "baseline_avg_fwd_return_pct": 6.77,
+      "baseline_hit_rate_pct": 78.8,
       "edge_vs_baseline_pct": null
     },
     {
@@ -124,8 +124,8 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 15.75,
-      "baseline_hit_rate_pct": 89.7,
+      "baseline_avg_fwd_return_pct": 15.73,
+      "baseline_hit_rate_pct": 89.8,
       "edge_vs_baseline_pct": null
     },
     {
@@ -135,8 +135,8 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 0.87,
-      "baseline_hit_rate_pct": 63.1,
+      "baseline_avg_fwd_return_pct": 0.85,
+      "baseline_hit_rate_pct": 62.8,
       "edge_vs_baseline_pct": null
     },
     {
@@ -146,8 +146,8 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 2.83,
-      "baseline_hit_rate_pct": 74.2,
+      "baseline_avg_fwd_return_pct": 2.81,
+      "baseline_hit_rate_pct": 73.9,
       "edge_vs_baseline_pct": null
     },
     {
@@ -157,8 +157,8 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 6.79,
-      "baseline_hit_rate_pct": 78.7,
+      "baseline_avg_fwd_return_pct": 6.77,
+      "baseline_hit_rate_pct": 78.8,
       "edge_vs_baseline_pct": null
     },
     {
@@ -168,8 +168,8 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 15.75,
-      "baseline_hit_rate_pct": 89.7,
+      "baseline_avg_fwd_return_pct": 15.73,
+      "baseline_hit_rate_pct": 89.8,
       "edge_vs_baseline_pct": null
     },
     {
@@ -179,8 +179,8 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 0.87,
-      "baseline_hit_rate_pct": 63.1,
+      "baseline_avg_fwd_return_pct": 0.85,
+      "baseline_hit_rate_pct": 62.8,
       "edge_vs_baseline_pct": null
     },
     {
@@ -190,8 +190,8 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 2.83,
-      "baseline_hit_rate_pct": 74.2,
+      "baseline_avg_fwd_return_pct": 2.81,
+      "baseline_hit_rate_pct": 73.9,
       "edge_vs_baseline_pct": null
     },
     {
@@ -201,8 +201,8 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 6.79,
-      "baseline_hit_rate_pct": 78.7,
+      "baseline_avg_fwd_return_pct": 6.77,
+      "baseline_hit_rate_pct": 78.8,
       "edge_vs_baseline_pct": null
     },
     {
@@ -212,8 +212,8 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 15.75,
-      "baseline_hit_rate_pct": 89.7,
+      "baseline_avg_fwd_return_pct": 15.73,
+      "baseline_hit_rate_pct": 89.8,
       "edge_vs_baseline_pct": null
     }
   ],
