@@ -1,43 +1,8 @@
 {
-  "generatedAt": "2026-11-03T02:44:37",
+  "generatedAt": "2026-11-04T01:00:47",
   "indexType": "NPS",
   "frequency": "daily",
   "series": [
-    {
-      "date": "2023-11-03",
-      "indicators": {
-        "VIX": {
-          "value": 14.91,
-          "pct": 18.5,
-          "status": "\uc548\uc815"
-        },
-        "EMBI": {
-          "value": 276.0,
-          "pct": 42.4,
-          "status": "\uc8fc\uc758"
-        },
-        "GSCI_YOY": {
-          "value": -10.99,
-          "pct": 19.2,
-          "status": "\uc548\uc815"
-        },
-        "HY": {
-          "value": 404.0,
-          "pct": 55.5,
-          "status": "\uc8fc\uc758"
-        },
-        "FX_VOL": {
-          "value": 6.96,
-          "pct": 46.6,
-          "status": "\uc8fc\uc758"
-        }
-      },
-      "modelA": 31.5,
-      "modelB": 13.0,
-      "modelC": 32.3,
-      "score": 25.6,
-      "stage": "\uc815\uc0c1"
-    },
     {
       "date": "2023-11-06",
       "indicators": {
@@ -26272,20 +26237,55 @@
           "status": "\uc704\ud5d8"
         },
         "HY": {
-          "value": 344.0,
-          "pct": 34.5,
+          "value": 343.0,
+          "pct": 34.1,
           "status": "\uc548\uc815"
         },
         "FX_VOL": {
-          "value": 4.24,
-          "pct": 18.4,
+          "value": 4.26,
+          "pct": 18.6,
           "status": "\uc548\uc815"
         }
       },
       "modelA": 45.1,
-      "modelB": 20.6,
+      "modelB": 20.5,
       "modelC": 44.8,
       "score": 36.8,
+      "stage": "\uc815\uc0c1"
+    },
+    {
+      "date": "2026-11-03",
+      "indicators": {
+        "VIX": {
+          "value": 20.83,
+          "pct": 56.1,
+          "status": "\uc8fc\uc758"
+        },
+        "EMBI": {
+          "value": 181.0,
+          "pct": 10.6,
+          "status": "\uc548\uc815"
+        },
+        "GSCI_YOY": {
+          "value": 29.42,
+          "pct": 87.6,
+          "status": "\uc704\ud5d8"
+        },
+        "HY": {
+          "value": 343.0,
+          "pct": 34.1,
+          "status": "\uc548\uc815"
+        },
+        "FX_VOL": {
+          "value": 4.17,
+          "pct": 17.7,
+          "status": "\uc548\uc815"
+        }
+      },
+      "modelA": 44.3,
+      "modelB": 19.5,
+      "modelC": 44.0,
+      "score": 35.9,
       "stage": "\uc815\uc0c1"
     }
   ]
