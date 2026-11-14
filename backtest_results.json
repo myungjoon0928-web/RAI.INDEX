@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T01:38:12",
+  "generatedAt": "2026-11-14T01:13:06",
   "indexType": "BACKTEST",
   "benchmark": "SPX",
   "minWarmupWeeks": 104,
@@ -19,7 +19,7 @@
   ],
   "baseline": {
     "4": {
-      "avg": 0.85,
+      "avg": 0.84,
       "median": 1.39,
       "hitRate": 62.8
     },
@@ -47,7 +47,7 @@
       "avg_fwd_return_pct": 6.4,
       "median_fwd_return_pct": 6.34,
       "hit_rate_pct": 80.0,
-      "baseline_avg_fwd_return_pct": 0.85,
+      "baseline_avg_fwd_return_pct": 0.84,
       "baseline_hit_rate_pct": 62.8,
       "edge_vs_baseline_pct": 5.55
     },
@@ -91,7 +91,7 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 0.85,
+      "baseline_avg_fwd_return_pct": 0.84,
       "baseline_hit_rate_pct": 62.8,
       "edge_vs_baseline_pct": null
     },
@@ -135,7 +135,7 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 0.85,
+      "baseline_avg_fwd_return_pct": 0.84,
       "baseline_hit_rate_pct": 62.8,
       "edge_vs_baseline_pct": null
     },
@@ -179,7 +179,7 @@
       "avg_fwd_return_pct": null,
       "median_fwd_return_pct": null,
       "hit_rate_pct": null,
-      "baseline_avg_fwd_return_pct": 0.85,
+      "baseline_avg_fwd_return_pct": 0.84,
       "baseline_hit_rate_pct": 62.8,
       "edge_vs_baseline_pct": null
     },
@@ -221,8 +221,8 @@
     {
       "threshold": -1.0,
       "date": "2024-08-12",
-      "rai_realtime": -1.04,
-      "rai_full_sample_lookahead": -1.22,
+      "rai_realtime": -1.05,
+      "rai_full_sample_lookahead": -1.23,
       "SPX_close": 5554.25,
       "drawdown_into_signal_pct": -1.1,
       "fwd_4w_pct": 1.29,
@@ -245,8 +245,8 @@
     {
       "threshold": -1.0,
       "date": "2025-03-31",
-      "rai_realtime": -1.15,
-      "rai_full_sample_lookahead": -1.28,
+      "rai_realtime": -1.18,
+      "rai_full_sample_lookahead": -1.32,
       "SPX_close": 5074.08,
       "drawdown_into_signal_pct": -17.0,
       "fwd_4w_pct": 12.07,
@@ -257,8 +257,8 @@
     {
       "threshold": -1.0,
       "date": "2025-04-14",
-      "rai_realtime": -1.13,
-      "rai_full_sample_lookahead": -1.27,
+      "rai_realtime": -1.15,
+      "rai_full_sample_lookahead": -1.28,
       "SPX_close": 5282.7,
       "drawdown_into_signal_pct": -13.6,
       "fwd_4w_pct": 12.79,
